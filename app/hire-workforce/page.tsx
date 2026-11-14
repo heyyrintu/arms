@@ -1,0 +1,4 @@
+import LeadForm from "@/components/LeadForm";
+import {pageMetadata} from "@/lib/metadata";
+export const metadata=pageMetadata("Hire Workforce","Tell ARMS about your staffing and workforce management requirements.");
+export default function Hire(){return <><section className="page-hero container"><p className="eyebrow">FOR EMPLOYERS / LET’S GET TO WORK</p><h1>Build a workforce<br/><span>ready for what’s next.</span></h1><p className="lead">Tell us the roles, headcount and operational requirements you need support with. ARMS can discuss an appropriate service and payroll model.</p></section><section className="section section-tint"><div className="container narrow"><h2>Tell us about your requirement.</h2><p>Submitting this form does not constitute a staffing agreement or guarantee availability.</p><LeadForm kind="employer"/></div></section></>}

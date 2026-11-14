@@ -1,0 +1,43 @@
+{
+  "name": "arms-talent-partners-web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "check:handoff": "node scripts/validate-handoff.mjs",
+    "test:preview": "node --test tests/preview.test.mjs",
+    "test:unit": "node --test tests/job-filters.test.mjs tests/database-config.test.mjs tests/storage-config.test.mjs tests/staff-auth.test.mjs",
+    "check:database": "node scripts/check-database.mjs",
+    "db:tunnel": "node scripts/database-tunnel.mjs",
+    "check:database:tunnel": "node scripts/check-database.mjs --ssh-tunnel",
+    "check:storage": "node scripts/check-storage.mjs",
+    "db:staff:plan": "node scripts/setup-staff-database.mjs",
+    "staff:create": "node scripts/create-staff-user.mjs"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.1169.0",
+    "@aws-sdk/client-sesv2": "^3.1169.0",
+    "next": "^16.0.0",
+    "pg": "^8.23.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "server-only": "^0.0.1"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.5.16",
+    "@types/node": "^22.0.0",
+    "@types/pg": "^8.23.1",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "eslint": "^9.0.0",
+    "eslint-config-next": "^16.0.0",
+    "typescript": "^5.7.0"
+  },
+  "engines": {
+    "node": ">=20.9.0"
+  }
+}

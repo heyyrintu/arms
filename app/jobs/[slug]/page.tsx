@@ -1,0 +1,7 @@
+import Link from "next/link";
+import {notFound} from "next/navigation";
+import {getPublicJobs,industryName} from "@/content/site";
+import {pageMetadata} from "@/lib/metadata";
+import LeadForm from "@/components/LeadForm";
+export async function generateMetadata({params}:{params:Promise<{slug:string}>}){const {slug}=await params;const j=getPublicJobs().find(x=>x.slug===slug);return j?pageMetadata(j.title,j.description):{};}
+export default async function JobDetail({params}:{params:Promise<{slug:string}>}){const {slug}=await params;const job=getPublicJobs().find(j=>j.slug===slug);if(!job)notFound();return <><section className="page-hero container"><p className="eyebrow">{industryName(job.industrySlug)} · {job.isSample?"SAMPLE ROLE":"OPEN ROLE"}</p><h1>{job.title}</h1><p className="lead">{job.location} · {job.type} · {job.experience} · Salary: {job.pay}</p>{job.isSample&&<div className="notice"><strong>Not an active job:</strong> This page demonstrates the intended job-detail format. You cannot apply for it.</div>}</section><section className="section container narrow"><h2>About the role</h2><p>{job.description}</p><h3>Responsibilities</h3><ul className="feature-list">{job.responsibilities.map(x=><li key={x}>{x}</li>)}</ul><h3>Requirements</h3><ul className="feature-list">{job.requirements.map(x=><li key={x}>{x}</li>)}</ul>{job.isSample?<p><Link href="/talent-network" className="button button-dark">Explore Talent Registration ↗</Link></p>:<LeadForm kind="application" jobId={job.id}/>}</section></>}

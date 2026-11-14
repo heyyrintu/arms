@@ -1,0 +1,29 @@
+export type Industry = {
+  slug: string; name: string; kicker: string; headline: string; summary: string;
+  roles: string[]; employerAngle: string; candidateAngle: string; photoAlt: string;
+};
+export type Service = { slug: string; label: string; headline: string; intro: string; features: string[]; };
+export type Job = {
+  id: string; slug: string; title: string; industrySlug: string; location: string;
+  type: string; experience: string; pay: string; description: string;
+  responsibilities: string[]; requirements: string[]; isSample: true;
+};
+export const industries: Industry[] = [
+  {slug:"warehousing-fulfillment", name:"Warehousing & Fulfillment",kicker:"01 / WORKFORCE IN MOTION",headline:"The people behind every order.",summary:"Workforces that keep inventory, fulfilment and warehouse operations moving.",roles:["Warehouse associates","Pickers & packers","Inventory executives","Supervisors","Loading & dispatch teams"],employerAngle:"Coordinate sourcing, shift-based deployment, attendance and the workforce support your facility requires.",candidateAngle:"Explore warehouse roles, understand workplace expectations and find opportunities suited to your skills.",photoAlt:"Actual warehouse team working together in a fulfilment facility"},
+  {slug:"transportation-drivers",name:"Transportation & Drivers",kicker:"02 / WORKFORCE ON THE MOVE",headline:"The people who keep things moving.",summary:"Dependable people for transport networks, delivery operations and fleet support.",roles:["Commercial drivers","Delivery personnel","Fleet coordinators","Transport support associates","Dispatch staff"],employerAngle:"Source suitable drivers and support staffing coordination around routes, shifts and site requirements.",candidateAngle:"Discover driving and transport roles with clear eligibility and location details.",photoAlt:"Actual transportation team coordinating drivers and fleet operations"},
+  {slug:"cafes-hospitality",name:"Cafés & Hospitality",kicker:"03 / PEOPLE BEHIND THE EXPERIENCE",headline:"The people behind every experience.",summary:"Service-oriented workforce support for cafés, hospitality venues and customer-facing operations.",roles:["Baristas","Service associates","Kitchen support","Housekeeping staff","Shift supervisors"],employerAngle:"Recruit service teams and coordinate staffing, attendance and payroll arrangements across shifts.",candidateAngle:"Explore guest-facing and back-of-house opportunities with transparent role expectations.",photoAlt:"Actual café and hospitality employees serving customers during a shift"}
+];
+export const services: Service[] = [
+  {slug:"build-your-workforce",label:"Build Your Workforce",headline:"The right people for the work ahead.",intro:"Plan, source, screen, onboard and deploy people around real operational needs.",features:["Role and headcount planning","Candidate sourcing and screening","Recruitment coordination","Onboarding and deployment support","Site and shift requirement alignment"]},
+  {slug:"manage-your-workforce",label:"Manage Your Workforce",headline:"Make everyday operations work better.",intro:"Connect teams, shifts, attendance and operational coordination through agreed processes.",features:["Attendance collection and reconciliation","Shift and roster coordination","Site-level workforce communication","Supervisor and operations coordination","Workforce reporting as agreed"]},
+  {slug:"support-your-workforce",label:"Support Your Workforce",headline:"Administration that supports people and business.",intro:"Payroll and workforce administration tailored to the contractual employment model.",features:["ARMS-managed or client-managed payroll arrangements","Payroll input preparation and reconciliation","Employment and workforce documentation","Worker query routing and support","Agreed administrative and compliance coordination"]}
+];
+export const sampleJobs: Job[] = [
+  {id:"sample-001",slug:"sample-warehouse-associate",title:"Warehouse Associate — SAMPLE",industrySlug:"warehousing-fulfillment",location:"Gurugram, Haryana",type:"Full-time",experience:"0–2 years",pay:"Not confirmed",description:"Illustrative vacancy only. This is not an active job opening and applications are not accepted.",responsibilities:["Support inventory handling and order preparation","Follow safety and shift procedures"],requirements:["Ability to work scheduled shifts","Role-specific skills to be confirmed"],isSample:true},
+  {id:"sample-002",slug:"sample-delivery-driver",title:"Delivery Driver — SAMPLE",industrySlug:"transportation-drivers",location:"Delhi NCR",type:"Full-time",experience:"Experience varies",pay:"Not confirmed",description:"Illustrative vacancy only. This is not an active job opening and applications are not accepted.",responsibilities:["Operate assigned routes safely","Follow delivery and documentation procedures"],requirements:["Valid required license for the role","Eligibility subject to employer verification"],isSample:true},
+  {id:"sample-003",slug:"sample-cafe-associate",title:"Café Associate — SAMPLE",industrySlug:"cafes-hospitality",location:"Gurugram, Haryana",type:"Full-time",experience:"Entry-level",pay:"Not confirmed",description:"Illustrative vacancy only. This is not an active job opening and applications are not accepted.",responsibilities:["Support daily café operations","Follow hygiene and customer service standards"],requirements:["Willingness to learn","Shift availability according to actual vacancy"],isSample:true}
+];
+// Fictional fixtures are available only through the local development server.
+export const isDemo = process.env.NODE_ENV === "development" && process.env.NEXT_PUBLIC_DEMO_MODE === "true";
+export function getPublicJobs(): Job[] { return isDemo ? sampleJobs : []; }
+export function industryName(slug: string) { return industries.find(i=>i.slug===slug)?.name ?? "Other"; }
