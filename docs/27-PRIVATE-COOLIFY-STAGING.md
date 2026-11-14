@@ -53,3 +53,22 @@ Deployment and hosted journey results must be recorded after they actually pass.
 Actual privacy approval, retention deletion/correction operations, real provider
 mail delivery, final content, accessibility/performance QA and launch sign-off
 remain separate requirements. No real applicant data is accepted by this setup.
+
+## Preparation results — 15 November 2026
+
+- Type check, lint and production build passed. 72 security/unit tests and all
+  12 local preview route checks passed, including staging routes returning 404
+  in a normal instance. Tests that open temporary sockets required local network
+  permission; their restricted-run failures were not application regressions.
+- Separate branch: `codex/private-coolify-staging` in the existing ARMS repository.
+  No main-branch change. Ignored `.env*`, private keys and new QA screenshots were
+  excluded from the source upload and Docker build context.
+- Coolify resource: ARMS-Private-Staging / private-staging /
+  ARMS Private Synthetic Staging, server `localhost`, application ID
+  `0mktgv1ycgori0mrbvfny5ly`. Manual deployments; no automatic build-argument
+  injection. Preserve repository files for the read-only scanner/proxy configs.
+- Base directory `/ops/staging`, Compose location `/compose.yaml`, gateway 8080.
+- Protected staging configuration is prepared locally in ignored
+  `.env.staging-access` (owner read/write only). The owner must enter and save
+  these new authentication credentials in Coolify. Browser credential entry
+  requires owner handoff. Hosted deployment and journey checks are still pending.

@@ -157,3 +157,11 @@ test('private intake and document mutations fail closed without returning person
   const get=await fetch(new URL(path,base));assert.equal(get.status,405,path);
  }
 });
+
+test('synthetic staging routes are unavailable outside the explicit isolated environment',async()=>{
+ for(const path of ['/staging/unlock','/staging/mailbox','/admin/staging'])assert.equal((await fetch(new URL(path,base))).status,404,path);
+ for(const path of ['/api/staging/unlock','/api/staff/staging']){
+  const result=await fetch(new URL(path,base),{method:'POST',headers:{Origin:base.origin,'Content-Type':'application/json'},body:'{}'});
+  assert.equal(result.status,404,path);
+ }
+});
