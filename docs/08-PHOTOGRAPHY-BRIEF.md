@@ -26,3 +26,8 @@ Each industry must have comparable image dimensions, attention, lighting quality
 
 ## Usage rights and accuracy
 Get photographer/client/site permissions, individual consent where required, licensing terms and relevant alt text. No assumption that stock photo subjects are ARMS staff or that a warehouse belongs to an ARMS client. Existing `references/` files are **brand direction only**, not licensed real-site photos.
+
+
+## Owner-directed brand and language update — 14 November 2026
+
+The owner explicitly added **Gig Work** as a fourth industry alongside Warehousing & Fulfillment, Transportation & Drivers and Cafés & Hospitality, with equal prominence. They requested a credible handshake/manpower/gig-worker hero, an expanded About with mission and vision, **Career** instead of Join Talent Network, and Hindi/English across the web app. These instructions supersede earlier three-sector, earlier hero-subject and language-pending descriptions in this document; they do not change payroll-by-contract, audience parity, authenticity, security or launch gates. Current implementation and evidence: docs/22.

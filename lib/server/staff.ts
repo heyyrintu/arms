@@ -1,7 +1,11 @@
 import 'server-only';
+import {stageEnabled,stageConfig} from '@/lib/staging/config.mjs';
+import {getLocale} from './locale';
+import {translate} from '@/lib/i18n';
 import {Pool} from 'pg';
 import {SESv2Client, SendEmailCommand} from '@aws-sdk/client-sesv2';
 import {databaseConfig} from '@/scripts/lib/database-config.mjs';
+import {staffRuntimePermissionQuery} from '@/lib/auth/runtime-permissions.mjs';
 import {staffAuth} from '@/lib/auth/service.mjs';
 import {requiresEmailCode} from '@/lib/auth/crypto.mjs';
 
@@ -25,18 +29,14 @@ export function staffConfiguration() {
 }
 export async function getStaffAuth() {
   const config=staffConfiguration();
+  const locale=await getLocale();
   if (!config.ready) throw new Error('STAFF_AUTH_UNAVAILABLE');
   if (!pool) {
     pool=new Pool({...databaseConfig(process.env.STAFF_DATABASE_URL),max:4,application_name:'arms-staff-auth'});
     pool.on('error',()=>{});
   }
   permissionCheck ??= (async ()=>{
-    const result=await pool!.query(`SELECT
-      EXISTS (SELECT 1 FROM pg_roles WHERE rolname=current_user AND (rolsuper OR rolbypassrls OR rolcreatedb OR rolcreaterole)) AS elevated,
-      EXISTS (SELECT 1 FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace
-        WHERE n.nspname='arms_auth' AND pg_has_role(c.relowner,'USAGE')) AS owns_tables,
-      has_schema_privilege('arms_auth','CREATE') AS can_create,
-      has_table_privilege('arms_auth.staff_users','INSERT,UPDATE,DELETE,TRUNCATE') AS can_change_staff`);
+    const result=await pool!.query(staffRuntimePermissionQuery);
     if (Object.values(result.rows[0]).some(Boolean)) throw new Error('STAFF_RUNTIME_ROLE_UNSAFE');
   })().catch(error=>{permissionCheck=undefined;throw error;});
   await permissionCheck;
@@ -46,8 +46,9 @@ export async function getStaffAuth() {
   const ses=new SESv2Client({region:process.env.SES_REGION,maxAttempts:1,
     ...(accessKeyId&&secretAccessKey?{credentials:{accessKeyId,secretAccessKey}}:{})});
   return staffAuth({db:pool,secret:config.secret,requireEmail:config.requireEmail,sendCode:async (email:string,code:string)=>{
+    if(stageEnabled(process.env)){stageConfig(process.env);const {captureStageCode}=await import('./staging');await captureStageCode(pool!,email,code);return;}
     const sent=await ses.send(new SendEmailCommand({FromEmailAddress:config.sender,Destination:{ToAddresses:[email]},
-      Content:{Simple:{Subject:{Data:'Your ARMS staff sign-in code',Charset:'UTF-8'},Body:{Text:{Charset:'UTF-8',Data:`Your ARMS Talent Partners staff sign-in code is ${code}. It expires in 10 minutes. Do not share this code. If you did not request it, contact your administrator.`}}}}}),{abortSignal:AbortSignal.timeout(10000)});
+      Content:{Simple:{Subject:{Data:translate('Your ARMS staff sign-in code',locale),Charset:'UTF-8'},Body:{Text:{Charset:'UTF-8',Data:translate('Your ARMS Talent Partners staff sign-in code is {code}. It expires in 10 minutes. Do not share this code. If you did not request it, contact your administrator.',locale).replace('{code}',code)}}}}}),{abortSignal:AbortSignal.timeout(10000)});
     if (!sent.MessageId) throw new Error('EMAIL_NOT_ACCEPTED');
   }});
 }

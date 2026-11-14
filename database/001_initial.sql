@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS jobs (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   slug text UNIQUE NOT NULL,
   title text NOT NULL,
-  industry_slug text NOT NULL CHECK (industry_slug IN ('warehousing-fulfillment','transportation-drivers','cafes-hospitality','other')),
+  industry_slug text NOT NULL CHECK (industry_slug IN ('warehousing-fulfillment','transportation-drivers','cafes-hospitality','gig-work','other')),
   location text NOT NULL,
   employment_type text NOT NULL,
   employer_display_name text,

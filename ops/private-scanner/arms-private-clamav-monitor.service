@@ -1,0 +1,9 @@
+[Unit]
+Description=Fail closed on unhealthy or stale ARMS private scanner
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/flock -n -E 0 /var/lock/arms-private-clamav.lock /usr/bin/python3 /opt/arms/private-scanner/monitor.py
+TimeoutStartSec=30

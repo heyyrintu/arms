@@ -39,3 +39,8 @@ Prototype uses system Arial/Helvetica for zero external font dependency. Propose
 
 ## Accessibility
 - Target WCAG 2.2 AA, verify text contrast, native inputs/labels, focus rings, skip link, keyboard navigation, aria-live form messages, proper alt text, 44×44 target goal, no information conveyed by color alone.
+
+
+## Owner-directed brand and language update — 14 November 2026
+
+The owner explicitly added **Gig Work** as a fourth industry alongside Warehousing & Fulfillment, Transportation & Drivers and Cafés & Hospitality, with equal prominence. They requested a credible handshake/manpower/gig-worker hero, an expanded About with mission and vision, **Career** instead of Join Talent Network, and Hindi/English across the web app. These instructions supersede earlier three-sector, earlier hero-subject and language-pending descriptions in this document; they do not change payroll-by-contract, audience parity, authenticity, security or launch gates. Current implementation and evidence: docs/22.

@@ -21,3 +21,10 @@ All three industry assets have the same dimensions, optimization quality, image-
 - Owner review of the concepts is pending. Generation is not legal or launch sign-off, and does not establish exclusive rights or guarantee clearance.
 - The genuine photography, permissions and launch-approval requirements in docs/08 and docs/10 remain open. If the owner wants generated imagery in the public launch, record that decision explicitly and retain the disclosures.
 - Exact generation prompts are recorded in `docs/image-generation-prompts.json`.
+
+
+## Owner refresh — 14 November 2026
+
+A new original handshake/workforce/gig-worker panorama replaces the earlier hero in runtime use: `public/photos/concepts/hero-partnership.webp` (2172 × 724; 211,854 bytes). A fourth equal industry image is `public/photos/concepts/gig.webp` (1536 × 1024; 238,484 bytes). Both were generated with the built-in image-generation tool and optimized as WebP at quality 85. The original hero file is retained, unused, for traceability; five concept assets are now active. Both new outputs were visually inspected.
+
+The owner specifically requested a handshake/manpower-agency/gig-worker subject. It is a fictional partnership scene in brand-adjacent teal/ivory tones, with a central handshake retained in the measured mobile crop. The Gig image has the same card dimensions and presentation as the other sectors. English and Hindi captions and alt text disclose AI generation; none is presented as actual ARMS staff, clients or premises. Real usage permissions/operational authenticity and launch approval remain open. Final saved paths, original output paths and exact prompts are recorded in `image-generation-prompts-refresh.json`; implementation evidence is in docs/22.

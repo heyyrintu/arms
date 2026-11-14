@@ -2,6 +2,7 @@ import nextEnv from '@next/env';
 import {Client} from 'pg';
 import {readFile,writeFile,chmod} from 'node:fs/promises';
 import {randomBytes,createHash,pbkdf2Sync,createHmac} from 'node:crypto';
+import {staffRuntimePermissionQuery} from '../lib/auth/runtime-permissions.mjs';
 import {databaseConfig} from './lib/database-config.mjs';
 nextEnv.loadEnvConfig(process.cwd(),false,{info(){},error(){}});
 const files=['database/002_staff_auth.sql','database/003_staff_runtime_grants.sql'];
@@ -47,10 +48,7 @@ try {
   target.username='arms_staff_runtime';target.password=password;
   runtime=new Client(databaseConfig(target.toString()));await runtime.connect();
   await runtime.query('BEGIN');
-  const {rows:[permissions]}=await runtime.query(`SELECT
-    EXISTS (SELECT 1 FROM pg_roles WHERE rolname=current_user AND (rolsuper OR rolbypassrls OR rolcreatedb OR rolcreaterole)) AS elevated,
-    has_schema_privilege('arms_auth','CREATE') AS can_create,
-    has_table_privilege('arms_auth.staff_users','INSERT,UPDATE,DELETE,TRUNCATE') AS can_change_staff`);
+  const {rows:[permissions]}=await runtime.query(staffRuntimePermissionQuery);
   if(Object.values(permissions).some(Boolean)) throw new Error('PERMISSION_CHECK_FAILED');
   await runtime.query('SELECT id,role FROM arms_auth.staff_users LIMIT 0');
   await runtime.query('SAVEPOINT denied_mutation');

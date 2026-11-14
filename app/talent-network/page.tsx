@@ -1,4 +1,2 @@
-import LeadForm from "@/components/LeadForm";
-import {pageMetadata} from "@/lib/metadata";
-export const metadata=pageMetadata("Join Talent Network","Register your interest for suitable future ARMS opportunities.");
-export default function TalentNetwork(){return <><section className="page-hero container"><p className="eyebrow">FOR PEOPLE / BUILD WHAT’S NEXT</p><h1>Bring your skills.<br/><span>Find possibilities.</span></h1><p className="lead">No suitable live vacancy? Share your preferences to be considered for future opportunities when registration is available.</p></section><section className="section section-tint"><div className="container narrow"><h2>Join the talent network.</h2><p>Registration does not guarantee a job or placement, and information is used according to the privacy notice.</p><LeadForm kind="talent"/></div></section></>}
+import {permanentRedirect} from 'next/navigation';
+export default function LegacyTalentNetwork(){permanentRedirect('/career');}

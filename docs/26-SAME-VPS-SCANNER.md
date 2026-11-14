@@ -1,0 +1,15 @@
+# Same-VPS private scanner — 15 November 2026
+
+The owner explicitly chose hosting on the current Lightsail VPS after seeing the capacity concern. A resource-capped scanner was installed and tested there. This supersedes docs/25's scanner-host-choice blocker; all website collection/privacy/launch gates remain.
+
+Current operations, exact pinned image, limits, timer behavior, stop procedure and remaining work are in [the scanner runbook](../ops/private-scanner/README.md). This is an auxiliary scanner installation, not a website deployment or approval to collect real CVs.
+
+Changed files: `ops/private-scanner/clamd.conf`, `freshclam.conf`, `refresh-and-start.sh`, `monitor.py`, two service/timer pairs; `scripts/private-scanner.mjs` and `check-scanner-instance.mjs`; `lib/intake/scanner-health.mjs`; package commands and scanner unit tests. No historical SQL, database credentials, app permissions, bucket access or other workloads were changed.
+
+The official pinned image reports ClamAV 1.5.4. Initial signatures were seven days old; freshclam updated them to daily 28183 and its full database verification passed inside the 1280 MiB cap. Only then did the daemon start. It responded on the private group-restricted Unix socket, without OOM. Engine and updater are serialized; no standard databases or validation were disabled. The network-disabled engine receives no app/bucket credentials. The updater has outbound access only as a distinct process without CV/socket/app mounts.
+
+Actual tests accepted the benign synthetic PDF, rejected the harmless EICAR antivirus test bytes, and refused oversized input and unavailable socket. The shared monitor verified ownership/resource/network settings and current signatures; unit tests reject stale/future/malformed/unapproved responses and forbid acting on unowned containers. The five-minute monitor and six-hour updater timers both activated successfully. A subsequent real engine check passed after maintenance. The last observed daemon use was 947 MiB under its 1.25 GiB hard cap, with around 1140 MiB available on the host. This bounded trial does not prove production capacity under future shared load.
+
+Final code validation: 67 unit/database/helper tests, typecheck, zero-warning lint, build and handoff pass. No UI changed and no new browser screenshot is claimed. The public POST handlers, staff access, private download and notification saved gates remain disabled. The new freshness wrapper is ready for the future real worker but does not wire public uploads by itself. No applicant data, real email, bucket upload or database row was created by these scanner checks.
+
+Next implementation work remains the complete private authenticated app/file/worker journey, followed by operational failure/load tests and privacy/retention approvals. No purchase, resize, existing-service restart, firewall opening or website deployment occurred. Continuous alert escalation and operator response remain launch requirements beyond the local timer health journal.

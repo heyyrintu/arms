@@ -1,0 +1,11 @@
+[Unit]
+Description=Refresh ARMS private CV scanner signatures every six hours
+
+[Timer]
+OnBootSec=5min
+OnUnitActiveSec=6h
+RandomizedDelaySec=10min
+Unit=arms-private-clamav-refresh.service
+
+[Install]
+WantedBy=timers.target

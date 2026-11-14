@@ -39,3 +39,8 @@ Legal operator: ARMS Talent Partners Private Limited. Privacy/support email: inf
 ## Owner backend clarification — 14 November 2026
 
 The owner replaced Auth0 with staff login IDs/passwords held as secure hashes in PostgreSQL, and an email verification code required in production. Amazon SES was chosen for those codes. Applicants still need no account. The owner explicitly approved attaching Ubuntu-1 to the private arms-people-solutions Lightsail bucket; attachment is verified. This does not approve public bucket access or website deployment. See docs/20 for implementation and remaining gates.
+
+
+## Owner-directed brand and language update — 14 November 2026
+
+The owner explicitly added **Gig Work** as a fourth industry alongside Warehousing & Fulfillment, Transportation & Drivers and Cafés & Hospitality, with equal prominence. They requested a credible handshake/manpower/gig-worker hero, an expanded About with mission and vision, **Career** instead of Join Talent Network, and Hindi/English across the web app. These instructions supersede earlier three-sector, earlier hero-subject and language-pending descriptions in this document; they do not change payroll-by-contract, audience parity, authenticity, security or launch gates. Current implementation and evidence: docs/22.

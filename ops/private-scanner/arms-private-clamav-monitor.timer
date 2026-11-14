@@ -1,0 +1,10 @@
+[Unit]
+Description=Check ARMS private scanner health every five minutes
+
+[Timer]
+OnBootSec=10min
+OnUnitActiveSec=5min
+Unit=arms-private-clamav-monitor.service
+
+[Install]
+WantedBy=timers.target

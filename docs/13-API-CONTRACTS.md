@@ -2,6 +2,8 @@
 
 These contracts are **specifications**, not working production endpoints. The three public POST routes currently return HTTP 503 intentionally. Do not mark implemented until the server validates, stores and acknowledges real submissions securely.
 
+Update: the jobs-only read endpoint and protected administrator mutation endpoint are now implemented; public personal-data POST routes remain unavailable. Current jobs contracts/limits and approval workflow are in docs/21. `/api/jobs` returns `{items}` for up to 200 latest approved unexpired vacancies; the proposed query filtering/pagination below remains future work. `POST /api/staff/jobs/[id]` supports save/publish/close/archive/restore with a current revision, administrator session, exact Origin, 32 KiB body limit and publication attestations. No caller-supplied actor or arbitrary status is trusted.
+
 ## Public job read
 `GET /api/jobs?industry=...&location=...&q=...&page=1`
 - Only active published jobs whose `expires_at` is NULL or in the future.
@@ -54,3 +56,5 @@ Names are recommendations, adapt to chosen Next.js server actions/handlers while
 
 ## Nonfunctional requirements
 Structured error shape, `no-store` for personalized/private responses, input size limits, audit logs without PII, rate limiting, no silent failures, safe retries, admin role checks, strict file access and secure retention/deletion.
+
+15 November intake foundation: docs/23 records strict internal parsers and isolated transactional/review services. These are not new HTTP contracts and do not enable these POST routes. The future request adapter must reject duplicate multipart fields, bound streamed inputs, obtain trusted network identity, enforce Origin/bot checks and adapt canonical checkbox/phone values; file fields remain rejected until quarantine/scanning is integrated.

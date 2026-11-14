@@ -1,0 +1,10 @@
+[Unit]
+Description=Refresh signatures and start the bounded ARMS private CV scanner
+After=docker.service network-online.target
+Requires=docker.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/opt/arms/private-scanner/refresh-and-start.sh
+TimeoutStartSec=600

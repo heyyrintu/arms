@@ -12,7 +12,8 @@ You are implementing the ARMS Talent Partners website from the supplied reposito
 - The business is **ARMS Talent Partners**, end-to-end workforce management: recruitment/supply, deployment, attendance, payroll and coordination.
 - Both **ARMS-managed and client-managed payroll** must be supported, according to signed arrangements.
 - **Employers and job seekers are equally important**; expose both in hero, header, navigation and industry pages.
-- **Warehousing & Fulfillment, Transportation & Drivers, Cafés & Hospitality** get equivalent prominence, section height, photographic quality, and role coverage. Do not make warehousing the default/preferred industry.
+- **Warehousing & Fulfillment, Transportation & Drivers, Cafés & Hospitality, Gig Work** get equivalent prominence, section height, photographic quality, and role coverage. Do not make warehousing the default/preferred industry.
+- Owner update: provide Hindi/English UI, Career wording and mission/vision; retain all collection and launch gates.
 - Hero copy is **“Great people. Greater possibilities.”**; tagline is **“Together for a Better Tomorrow.”**
 - Identity is **Premium + Bold + Human**; Editorial Hero with approx. **65% content / 35% photography emphasis**; strong eye-level workplace panorama, **Powerful & Ambitious**, not fake stock-photo smiles.
 - Use existing logo assets, deep teal/ivory/gold. Avoid metal gradients, glassmorphism, spinning stars, generic HR icons and endless cards.

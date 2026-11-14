@@ -28,37 +28,38 @@ Open `http://localhost:3000`.
 ## Project status (transparent)
 
 ### Included and implemented
-- Responsive editorial homepage and global navigation/footer.
+- Responsive editorial homepage and global navigation/footer, with a persistent Hindi/English preference.
 - Solutions index and three detailed solution pages.
-- Industries index and **three equally prominent industry pages**.
+- Industries index and **four equally prominent industry pages**, including Gig Work.
 - Job discovery with keyword, industry, location and employment-type filters, accent-insensitive search and a keyboard-friendly reset **on labelled sample data in demo mode**.
 - Sample job-detail pages that disable applications.
 - Employer requirement, talent registration and conditional job application form UI.
-- About, Contact, Candidate Support and a detailed draft Privacy notice with a shared, versioned recruitment-retention schedule; see `docs/19-PRIVACY-AND-RETENTION.md`.
+- Expanded About with mission, vision and guiding values; Career at `/career` (legacy `/talent-network` redirects); Contact, Candidate Support and a detailed draft Privacy notice with a shared, versioned recruitment-retention schedule; see `docs/19-PRIVACY-AND-RETENTION.md`.
 - Original ARMS wordmark and icon assets, using their actual dimensions.
-- Four optimized AI-generated workplace concepts, commissioned by the owner for preview, visibly labelled at every placement; see `docs/16-GENERATED-IMAGERY.md`.
+- Five active optimized AI-generated workplace concepts, commissioned by the owner for preview, visibly labelled at every placement; see `docs/16-GENERATED-IMAGERY.md`.
 - Persistent equal audience paths, sector-preserving job links, keyboard menu and skip-link behavior.
 - Basic metadata, no-index preview behavior, accessible labels, mobile navigation, reduced-motion CSS.
+- Administrator job management at `/admin/jobs`: save/reopen drafts, preview, approve/publish, edit back to draft, close/archive/restore, expiry and append-only activity. Isolated jobs schema and restricted writer/public-reader logins are configured. No real vacancies have been supplied or published; see `docs/21-JOB-PUBLICATION.md`.
 
 ### Not yet implemented (Codex must complete before launch)
-- Postgres database, migrations and deployed storage integration.
+- Applicant database migrations and deployed storage integration. Staff and jobs schemas are configured separately; the original applicant schema remains unapplied.
 - Secure candidate/employer form submission, validation, anti-spam, notifications, acknowledgement emails.
-- Live vacancies, authenticated admin console, job publishing, application review and state changes.
-- Private CV upload/retention, secure admin access and audit logging.
+- Owner-approved genuine vacancies and authenticated owner review of the new job-management route; hosted verification of application review and state changes.
+- Real-bucket/scanner verification, public CV upload linkage and operational retention/deletion. Private document services and protected review screens are prepared/tested locally; see docs/24.
 - Owner-reviewed genuine workplace photography/permissions (generated concepts do not establish operational authenticity) and verified company contact information.
 - Final legal privacy notice, operational policies, domain, analytics, SEO and end-to-end tests.
 
 These are **intentional launch blockers**, not features to silently claim as working.
 
-## Selected stack (backend not connected)
+## Selected stack (staff and jobs connected privately)
 
 - Next.js 16 App Router + React 19 + TypeScript + custom CSS tokens (already scaffolded).
-- PostgreSQL with server-only database access and migrations in `database/` (proposed; not connected).
-- Auth0 staff authentication and server-enforced roles; Amazon Lightsail object storage storage for CVs (selected by the owner, not connected).
-- Email delivery provider and rate limiting (to be chosen/configured).
+- PostgreSQL with server-only access. Staff migrations are applied in isolated `arms_auth`; jobs use isolated `arms_jobs`; applicant schema remains proposed.
+- Database-backed staff login/password hashes and server-enforced roles, with Amazon SES email verification required in production; private Lightsail object storage attached to the approved VPS.
+- Amazon SES for staff email codes; public-form notification/abuse controls remain to be implemented.
 - Deploy on a supported Node.js platform; configure environment variables from the deployment platform's secret manager.
 
-The owner selected PostgreSQL, Lightsail object storage and Auth0 on 14 November 2026. Database verified read-only through a local SSH tunnel; direct public access remains blocked by the Lightsail firewall. Storage access, Auth0 configuration and retention approvals remain pending; see `docs/18-BACKEND-INTEGRATION-PLAN.md`. The owner has supplied a bucket name/region and database connection; remote access is not yet verified. Do not add keys to git, browser bundles or documentation.
+The owner replaced Auth0 with database-backed staff credentials and selected Amazon SES with sender `noreply@armstalentpartners.com`. The private Lightsail bucket is attached to Ubuntu-1. Staff authentication tables and a restricted database login were created after explicit owner approval; local credentials use the approved SSH tunnel and remain outside source. The owner has created the first staff administrator and verified its email. The real password/email-code/workspace/sign-out flow passed on 14 November 2026; session creation and revocation were independently checked on the hosted database. The temporary local test server and tunnel are stopped, and saved staff sign-in remains disabled pending production operational checks. Public submissions remain disabled. See `docs/18-BACKEND-INTEGRATION-PLAN.md` and `docs/20-STAFF-AUTH-AND-STORAGE.md`. Do not put secrets in git, browser bundles or documentation.
 
 ## Commands
 
@@ -71,6 +72,10 @@ npm run check:handoff
 npm run test:preview
 npm run test:unit
 npm run check:database
+npm run check:storage
+npm run check:ses -- --simulator
+npm run db:staff:plan
+npm run check:staff-database
 # For local database access over the approved SSH path:
 npm run db:tunnel
 # In another terminal while the tunnel runs:
@@ -102,3 +107,13 @@ Run the preview tests against a running local server. With fictional development
 ARMS can support **ARMS-managed payroll or client-managed payroll depending on contract**. The public site must not promise that legal employment, payroll, statutory compliance, attendance or worker support responsibilities are identical under both arrangements. It also must not invent client names, placement metrics, vacancies, addresses, phone numbers or success stories.
 
 Additional implementation detail: `docs/13-API-CONTRACTS.md`, `docs/14-ADMIN-UX.md`, `docs/15-OWNER-INPUTS.md`.
+
+Owner refresh: Gig Work, handshake/workforce hero, expanded About, Career naming and full owned-UI Hindi/English rendering are recorded in `docs/22-BRAND-AND-LANGUAGE-UPDATE.md`. Authored vacancy content remains in its entered language. All collection and launch gates remain in effect.
+
+Forms milestone preparation (15 November 2026): strict three-purpose validation, isolated saving/review service, prepared restricted migrations and rollback/security tests are in [docs/23](docs/23-INTAKE-FOUNDATION.md). Public forms remain closed; CV processing and delivery are still pending. `npm run db:intake:plan` prints migration hashes without connecting or applying.
+
+Private CV/review increment (15 November 2026): [docs/24](docs/24-PRIVATE-CV-AND-REVIEW.md) records protected bilingual review screens, quarantined PDF processing, private audited downloads and a disabled internal notification worker. Migrations 008–011 remain unapplied to the hosted DB; public collection remains closed.
+
+Private infrastructure update (15 November 2026): [docs/25](docs/25-PRIVATE-INTEGRATION-VERIFICATION.md) records applied empty intake migrations/restricted roles, real rollback-only PostgreSQL checks and an actual instance-credential private bucket round trip. The scanner host/capacity decision and full collection/retention/privacy approvals remain open; all collection and worker gates stay disabled. No deployment occurred.
+
+Owner-approved same-VPS scanner (15 November 2026): [docs/26](docs/26-SAME-VPS-SCANNER.md) records the capped private ClamAV installation and engine/maintenance checks. The site and real submissions remain disabled pending full workflow/privacy/operational approval.

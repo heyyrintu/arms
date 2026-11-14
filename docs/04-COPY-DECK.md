@@ -41,3 +41,8 @@
 
 ## Prohibited content unless verified
 No company founding year, staff counts, deployment counts, claimed 99% accuracy, fake testimonials, named client logos, “100% compliant” legal guarantees, “guaranteed placement”, invented salaries, fixed availability claims, invented office address, email, phone or domain.
+
+
+## Owner-directed brand and language update — 14 November 2026
+
+The owner explicitly added **Gig Work** as a fourth industry alongside Warehousing & Fulfillment, Transportation & Drivers and Cafés & Hospitality, with equal prominence. They requested a credible handshake/manpower/gig-worker hero, an expanded About with mission and vision, **Career** instead of Join Talent Network, and Hindi/English across the web app. These instructions supersede earlier three-sector, earlier hero-subject and language-pending descriptions in this document; they do not change payroll-by-contract, audience parity, authenticity, security or launch gates. Current implementation and evidence: docs/22.

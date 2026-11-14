@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  output: 'standalone',
   poweredByHeader: false,
   async headers() {
     return ['/admin/:path*','/api/staff/:path*'].map(source=>({source,headers:[

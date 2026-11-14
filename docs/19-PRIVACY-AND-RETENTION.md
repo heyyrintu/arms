@@ -46,3 +46,6 @@ The owner supplied the legal operator **ARMS Talent Partners Private Limited**, 
 6. Test expiry boundaries, opt-out/withdrawal, a CV linked to multiple purposes, active holds/minimums, deletion retries, restoration and audit permissions with synthetic fixtures.
 
 No deletion scheduler, database policy migration or personal-data collection has been activated by this change. The launch checklist remains unsigned.
+
+
+Language/naming update: draft notice version `2026-11-14.v2` now uses Career terminology and discloses the essential one-year English/Hindi preference cookie plus private staff authentication cookies. Both interface languages render the same policy version and unchanged recruitment retention periods. The Hindi copy is a draft translation requiring owner/legal review, not legal approval. No collection, deletion scheduler or public submission route was enabled.

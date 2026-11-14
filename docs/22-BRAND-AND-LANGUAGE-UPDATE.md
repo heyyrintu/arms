@@ -1,0 +1,38 @@
+# Owner-directed brand and language refresh — 14 November 2026
+
+## Requested scope and decisions
+
+The owner requested: a more credible brand-related handshake/manpower/gig-worker hero; Gig Work in Industries; mission and vision plus a stronger About page; Career wording; and Hindi/English throughout the web app. This explicitly extends the previous three-sector scope. The existing three industries retain equal prominence alongside the fourth, employers/job seekers remain equal, the English hero/tagline and supplied logos remain intact, and no workforce/payroll/legal outcome is invented.
+
+## Implemented
+
+- A new original generated hero depicts a staffing coordinator greeting a gig worker with a wider workforce coordination setting. Saved asset: `public/photos/concepts/hero-partnership.webp`, 2172 × 724. About uses the same clearly labelled concept. The original hero is retained but no longer used.
+- Gig Work has five illustrative role categories, an equal-scale image, home/index presence, `/industries/gig-work`, job filters, employer/career form options, staff editor selection and server/DB validation. Each engagement's scope, pay, eligibility and payroll obligations still need actual signed terms. No platform partnerships, worker classification, live gigs or guaranteed availability are claimed. Asset: `public/photos/concepts/gig.webp`, 1536 × 1024.
+- Both assets were created through built-in image generation and inspected; WebP optimization uses quality 85. They have English/Hindi AI concept captions/alt text. Their exact prompts, original generated paths and final saved paths are in `image-generation-prompts-refresh.json`. No logo was regenerated or third-party image downloaded.
+- About now has purpose, aspirational mission and vision, clarity/respect/accountability values, equal four-sector links and equal business/candidate paths. It contains no invented history, metrics, testimonials or named clients. Copy awaits normal owner launch review.
+- Header, footer, CTAs and profile journey use Career. The new `/career` page keeps the same general future-opportunity purpose and disabled form; `/talent-network` permanently redirects to it. Internal purpose IDs and the unavailable `/api/talent-registrations` contract remain compatible.
+- Owned UI copy across public pages, privacy, accessibility labels, forms, staff sign-in, staff workspace and job tools is rendered in English or Hindi from one dictionary. Staff-code email copy is localized too; no new code email was sent in this increment. Official names, email addresses, canonical identifiers and author-entered vacancy content are preserved, not silently translated into unapproved job terms.
+
+## Language implementation and safeguards
+
+The header has EN/हिंदी buttons with current-language states and keyboard focus. `/api/language` accepts only a bounded same-origin JSON choice, sets the essential HttpOnly SameSite=Lax `arms_language` preference for up to one year, and never touches staff/session/verification cookies. Secure is used for HTTPS. The handler compares the actual request Host to the browser Origin because Next normalizes the local URL to localhost even for 127.0.0.1; forwarded hosts are not trusted. Invalid, oversized and foreign-origin requests are rejected.
+
+Server rendering reads the allowlisted preference and sets `<html lang>`, localized page metadata and translated visible copy before output. Client controls share the same locale/dictionary. `localizeContent` translates owned string nodes/accessibility attributes before React renders; it does not rewrite the DOM or execute third-party translation scripts. It preserves input values, option values, names, IDs, URLs, handlers, authored keys and explicitly marked source content. Stable unkeyed-sibling keys are assigned consistently in both languages, avoiding React warnings or remounting stateful forms. Changing the preference refreshes server copy on the same URL and keeps controlled filters/typed data. No sensitive form data is put in URLs or browser storage.
+
+The privacy draft is now `2026-11-14.v2`, with Career wording and truthful language/authentication-cookie disclosure. Retention periods and collection gates are unchanged. Hindi privacy copy remains subject to owner/legal review. Locale is cookie-based at the existing URLs; independently indexed language URLs/hreflang and production SEO decisions remain a launch-stage review. Personalized locale output is private/no-store rather than shared across users.
+
+## Database increment
+
+Added/applied `database/007_gig_work_industry.sql` to the dedicated jobs schema over the existing private SSH path. It replaces the supported-industry CHECK only, retains all other constraints/grants and records a migration hash. Fresh setup includes 007; the unapplied suggested 001 was updated for the new industry. Applied historical migrations 004–006 were not edited. No job/applicant/staff record was created or published by this change.
+
+## Verification and limits
+
+Startup install/typecheck/lint/build passed. Local tests cover Hindi server rendering, language allowlisting, escaped source data, stable keys, unchanged controlled/option values, four-industry validation and the updated SQL constraint, in addition to existing authentication/job lifecycle/storage checks. Browser verification measured Home, About, industry index, Gig Work, Career and Privacy in both languages at 320/360/768/1024/1440px: no horizontal overflow and equal heights for all four industry cards. One h1 per route is retained. The central handshake stays visible on mobile. Real navigation confirmed locale persistence and preservation of `/jobs?industry=gig-work`, selected industry and typed search text during switching.
+
+An isolated synthetic staff-editor browser check verified Hindi fields, a canonical `gig-work` / `Contract` selection, retained entered text across a language toggle, and successful private PGlite draft save with Hindi acknowledgement. It used no real database/session/email and published nothing. The real authenticated owner job-management mutation flow remains for owner review as recorded in docs/21. Human screen-reader review and native-speaker/legal review are not claimed complete.
+
+The Hindi staff editor was additionally measured at 320/360/768/1440px with no horizontal overflow and labels on every control. Final verification: 36 unit/database/helper tests and ten production-preview HTTP tests pass, together with typecheck, lint, build and handoff checks. Sixteen browser JS assets were checked against configured DB/HMAC/SES credentials with none found; local `.env` remains mode 600. The hosted jobs CHECK supports `gig-work`, with zero jobs and zero job activity records. The DB tunnel and isolated fixture server are closed; a loopback-only production preview remains available on port 3001 with `JOBS_ENABLED=false` and saved staff auth disabled, for owner content/language review.
+
+Evidence files: `artifacts/qa/home-refresh-english.png`, `home-refresh-hindi.png`, `home-refresh-hindi-mobile.png`, `about-mission-vision-english.png`, `four-industries-english.png`, and `admin-editor-hindi-isolated.png`. The final production-preview test totals and live preview details are recorded in docs/17.
+
+No deployment, indexing, applicant collection, private-CV workflow or public form submission was enabled. Real approved vacancies, final company/legal/contractual particulars, genuine photography permission/owner launch imagery decision and docs/10 sign-off remain outstanding. Owner review is needed for the mission/vision, generated concepts and Hindi terminology/privacy translation; none of those requires collecting real candidate data now.

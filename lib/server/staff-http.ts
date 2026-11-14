@@ -1,5 +1,6 @@
 import 'server-only';
 import {NextRequest,NextResponse} from 'next/server';
+import {databaseErrorCode} from '@/scripts/lib/database-config.mjs';
 import {getStaffAuth,staffConfiguration,staffCookie,challengeCookie,cookieOptions} from './staff';
 
 const headers={'Cache-Control':'no-store','X-Robots-Tag':'noindex, nofollow','Referrer-Policy':'no-referrer'};
@@ -50,6 +51,12 @@ export async function staffPost(request:NextRequest, action:'login'|'verify'|'lo
   } catch (error) {
     const code=error instanceof Error?error.message:'';
     const status=code==='RATE_LIMITED'?429:['INVALID_LOGIN','INVALID_CODE'].includes(code)?401:code==='INVALID_REQUEST'||error instanceof SyntaxError?400:503;
+    if(status===503) {
+      const known=['EMAIL_UNAVAILABLE','STAFF_AUTH_UNAVAILABLE','STAFF_RUNTIME_ROLE_UNSAFE','SES_CREDENTIALS_INCOMPLETE','AUTH_SECRET_MISSING','PASSWORD_BUSY'];
+      // Fixed classifications only: never log the error object/message, account,
+      // request, password, email code, session token or database URL.
+      console.error('[staff-auth] unavailable',{reason:known.includes(code)?code:databaseErrorCode(error)});
+    }
     const message=status===429?'Too many attempts. Wait before trying again.':status===401?'Sign-in details or code could not be verified.':status===400?'Invalid request.':'Staff sign-in is temporarily unavailable. Please try again later.';
     return NextResponse.json({error:message},{status,headers:{...headers,...(status===429?{'Retry-After':'900'}:{})}});
   }

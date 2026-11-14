@@ -1,0 +1,93 @@
+# Synthetic staging only. Never attach actual ARMS credentials or volumes.
+services:
+  db:
+    image: postgres:18-alpine
+    environment:
+      POSTGRES_DB: arms_private_stage
+      POSTGRES_PASSWORD: ${STAGING_BOOTSTRAP_PASSWORD:?required}
+    volumes:
+      - stage-db:/var/lib/postgresql
+    healthcheck:
+      test: [CMD-SHELL, 'pg_isready -U postgres -d arms_private_stage']
+      interval: 5s
+      timeout: 3s
+      retries: 30
+    mem_limit: 512m
+    networks: [stage]
+    restart: unless-stopped
+  initialize:
+    build:
+      context: ../..
+      dockerfile: Dockerfile.staging
+    network_mode: service:db
+    depends_on:
+      db: {condition: service_healthy}
+    environment:
+      ARMS_PRIVATE_STAGING: 'true'
+      STAGING_DATABASE_NAME: arms_private_stage
+      STAGING_RUNTIME_SECRET: ${STAGING_RUNTIME_SECRET:?required}
+      STAGING_BOOTSTRAP_PASSWORD: ${STAGING_BOOTSTRAP_PASSWORD:?required}
+      STAGING_ADMIN_PASSWORD: ${STAGING_ADMIN_PASSWORD:?required}
+    command: [node, scripts/staging/bootstrap.mjs]
+    restart: 'no'
+  volume-init:
+    image: alpine:3.22
+    user: '0:0'
+    volumes: [stage-signatures:/var/lib/clamav, stage-socket:/run/clamav, stage-files:/data/stage-files]
+    command: [sh, -ec, 'chown 100:101 /var/lib/clamav /run/clamav; chmod 770 /run/clamav; chown 1000:1000 /data/stage-files; chmod 700 /data/stage-files']
+    restart: 'no'
+    networks: [stage]
+  scanner:
+    image: clamav/clamav@sha256:2a9be29239aea6c6fe17da9625f3c192f91974e61059d364e293f20277f931a3
+    user: '100:101'
+    depends_on:
+      volume-init: {condition: service_completed_successfully}
+    entrypoint: [sh, /opt/arms/scanner.sh]
+    volumes:
+      - stage-signatures:/var/lib/clamav
+      - stage-socket:/run/clamav
+      - ./freshclam.conf:/etc/clamav/arms-freshclam.conf:ro
+      - ./clamd.conf:/etc/clamav/arms-clamd.conf:ro
+      - ./scanner.sh:/opt/arms/scanner.sh:ro
+    tmpfs: [/tmp]
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    mem_limit: 1280m
+    memswap_limit: 1280m
+    cpus: 0.5
+    networks: [stage]
+    restart: unless-stopped
+  app:
+    build:
+      context: ../..
+      dockerfile: Dockerfile.staging
+    network_mode: service:db
+    depends_on:
+      initialize: {condition: service_completed_successfully}
+      volume-init: {condition: service_completed_successfully}
+    environment:
+      ARMS_PRIVATE_STAGING: 'true'
+      STAGING_DATABASE_NAME: arms_private_stage
+      STAGING_RUNTIME_SECRET: ${STAGING_RUNTIME_SECRET:?required}
+      STAGING_GATE_PASSWORD: ${STAGING_GATE_PASSWORD:?required}
+      APP_BASE_URL: ${APP_BASE_URL:?required}
+    volumes: [stage-files:/data/stage-files, stage-socket:/run/clamav]
+    group_add: ['101']
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    mem_limit: 768m
+    restart: unless-stopped
+  gateway:
+    image: nginx:1.28-alpine
+    depends_on: [app]
+    volumes: ['./nginx.conf:/etc/nginx/nginx.conf:ro']
+    expose: ['8080']
+    networks: [stage]
+    restart: unless-stopped
+volumes:
+  stage-db:
+  stage-signatures:
+  stage-socket:
+  stage-files:
+networks:
+  stage:

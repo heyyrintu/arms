@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import {randomUUID} from 'node:crypto';
 import {PGlite} from '@electric-sql/pglite';
+import {staffRuntimePermissionQuery} from '../lib/auth/runtime-permissions.mjs';
 import {staffAuth} from '../lib/auth/service.mjs';
 import {hashPassword,verifyPassword,requiresEmailCode,token,tokenHash,normalizeLogin} from '../lib/auth/crypto.mjs';
 const pg=new PGlite();
@@ -129,4 +130,22 @@ test('runtime grants forbid public table access and staff credential/role change
   await assert.rejects(()=>pg.query("INSERT INTO arms_auth.staff_users (id,login_id,email,password_hash,role) VALUES (gen_random_uuid(),'bad.user','bad@example.invalid',$1,'admin')",[passwordHash]),/permission denied/);
   await assert.rejects(()=>pg.exec('CREATE TABLE arms_auth.bad (id integer)'),/permission denied/);
   await pg.exec('RESET ROLE');
+});
+
+
+test('runtime safety detects column-level credential grants and elevated role memberships',async()=>{
+  await pg.exec('SET ROLE arms_staff_runtime');
+  assert.ok(Object.values((await pg.query(staffRuntimePermissionQuery)).rows[0]).every(value=>value===false));
+  await pg.exec('RESET ROLE');
+  await pg.exec('GRANT UPDATE (password_hash) ON arms_auth.staff_users TO arms_staff_runtime');
+  await pg.exec('SET ROLE arms_staff_runtime');
+  assert.equal((await pg.query(staffRuntimePermissionQuery)).rows[0].can_change_staff,true);
+  await pg.exec('RESET ROLE');
+  await pg.exec('REVOKE UPDATE (password_hash) ON arms_auth.staff_users FROM arms_staff_runtime');
+  await pg.exec('CREATE ROLE synthetic_power CREATEDB');
+  await pg.exec('GRANT synthetic_power TO arms_staff_runtime');
+  await pg.exec('SET ROLE arms_staff_runtime');
+  assert.equal((await pg.query(staffRuntimePermissionQuery)).rows[0].elevated,true);
+  await pg.exec('RESET ROLE');
+  await pg.exec('REVOKE synthetic_power FROM arms_staff_runtime');
 });

@@ -41,3 +41,8 @@ Solutions answers **what** ARMS does. Industries answers **where**. Jobs answers
 - Never silently replace unknown salary/contact/location with guesses.
 - Do not show fictional demo jobs publicly.
 - Provide candidate help routing tailored to the actual employing entity and contracted responsibilities.
+
+
+## Owner-directed brand and language update — 14 November 2026
+
+The owner explicitly added **Gig Work** as a fourth industry alongside Warehousing & Fulfillment, Transportation & Drivers and Cafés & Hospitality, with equal prominence. They requested a credible handshake/manpower/gig-worker hero, an expanded About with mission and vision, **Career** instead of Join Talent Network, and Hindi/English across the web app. These instructions supersede earlier three-sector, earlier hero-subject and language-pending descriptions in this document; they do not change payroll-by-contract, audience parity, authenticity, security or launch gates. Current implementation and evidence: docs/22.
