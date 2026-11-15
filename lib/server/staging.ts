@@ -7,7 +7,7 @@ import {documentProcessor} from '@/lib/intake/documents.mjs';
 import {scanCurrentPdf} from '@/lib/intake/scanner-health.mjs';
 import {internalNotifications} from '@/lib/intake/notifications.mjs';
 import {getIntakeReview,authorizeIntake} from './intake';
-import {syntheticCase} from '@/lib/staging/fixtures.mjs';
+import {syntheticCase,syntheticPdf} from '@/lib/staging/fixtures.mjs';
 import {randomUUID} from 'node:crypto';
 const pools=new Map<string,Pool>();
 export async function stagePool(role:string) {
@@ -30,7 +30,7 @@ export async function runStageCase(input:Record<string,unknown>) {
  let documentStatus='none';
  if(kind!=='employer'&&input.cv==='clean') {
   const processor=documentProcessor({db:await stagePool(stageRoles.processor),storage:privateStageStorage(),scan:(bytes:Buffer)=>scanCurrentPdf(bytes,{socketPath:'/run/clamav/clamd.sock'}),authorizeParent:async(id:string)=>(await getIntakeReview()).get(id)});
-  try {documentStatus=(await processor.stage(receipt.referenceId,{name:'synthetic.pdf',type:'application/pdf',bytes:Buffer.from('%PDF-1.7\nSynthetic private QA resume. No real personal data.\n%%EOF\n')})).status;}
+  try {documentStatus=(await processor.stage(receipt.referenceId,{name:'synthetic.pdf',type:'application/pdf',bytes:syntheticPdf()})).status;}
   catch(error){if(error instanceof Error&&error.message==='DOCUMENT_EXISTS')documentStatus='already_attached';else throw error;}
  }
  const capture=await stagePool(stageRoles.capture);
