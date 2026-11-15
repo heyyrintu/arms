@@ -60,3 +60,11 @@ Owner-directed content/language increment completed separately: see docs/22 for 
 15 November follow-up: docs/24 adds protected bilingual record/status review, private CV processing/download and internal notification services with isolated tests. These are not completion of hosted/public collection, applicant acknowledgements, scanner operations, assignment-based recruiter access or retention/deletion. Milestones 3 and 4 remain open pending those integration/operational gates.
 
 Private verification follow-up: docs/25 records applied empty intake migrations and actual restricted-role/rollback and Lightsail bucket tests. Milestone 3 acceptance is still open: scanner host/capacity, actual engine, complete authenticated HTTP/file/notification journey and retention/privacy operations are not completed by these infrastructure probes.
+
+Private staging follow-up (15 November): docs/27 records an isolated Coolify
+localhost deployment and actual authenticated HTTP/UI tests of all three fixed
+synthetic journeys, scanned CVs, captured notifications, retry, review, withdrawal
+and sign-out. Ten hosted endpoint checks passed. This closes the private test
+wiring gap, while actual S3/SES activation, real-data collection/abuse operations,
+privacy/correction/deletion/backups and the launch checklist remain open. No whole
+production milestone is marked complete by a synthetic staging pass.

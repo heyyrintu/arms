@@ -49,7 +49,7 @@ capacity before activation. No production scanner or existing service is changed
 
 ## Outstanding checks and gates
 
-Deployment and hosted journey results must be recorded after they actually pass.
+Hosted synthetic journey results are recorded below.
 Actual privacy approval, retention deletion/correction operations, real provider
 mail delivery, final content, accessibility/performance QA and launch sign-off
 remain separate requirements. No real applicant data is accepted by this setup.
@@ -69,6 +69,64 @@ remain separate requirements. No real applicant data is accepted by this setup.
   injection. Preserve repository files for the read-only scanner/proxy configs.
 - Base directory `/ops/staging`, Compose location `/compose.yaml`, gateway 8080.
 - Protected staging configuration is prepared locally in ignored
-  `.env.staging-access` (owner read/write only). The owner must enter and save
-  these new authentication credentials in Coolify. Browser credential entry
-  requires owner handoff. Hosted deployment and journey checks are still pending.
+  `.env.staging-access` (owner read/write only). The owner entered and saved
+  these staging-only credentials in Coolify. No actual ARMS credentials were copied.
+
+
+## Hosted results — 15 November 2026
+
+Private preview: https://arms-staging.dronalogitech.com/staging/unlock
+
+Coolify deployed source `b3b6394827791e1f6cc4f22daa8052d24f55a892` on
+`localhost`. Deployment `ofwetyxiyrodvwsqz8lssomx` completed successfully. The
+initial sslip.io address presented an untrusted certificate. No browser warning
+was bypassed; the resource moved to the existing server-domain wildcard, with
+HTTPS, no-index and the same private access gate. No DNS credentials or existing
+company application were changed. Runtime logs confirmed Next startup and the
+scanner's successful signature update/database test (daily 28183).
+
+Verified through the hosted browser UI:
+
+- An unauthenticated visitor sees the private-access block. The staging password
+  unlocks the site; staff access separately requires password and a captured,
+  expiring email code. The synthetic administrator reached Staff workspace.
+- Employer enquiry saved, returned a reference and kept that reference on retry.
+  The protected mailbox showed one acknowledgement and one internal notification
+  for that enquiry; neither was delivered externally.
+- Career profile saved with a generated valid one-page PDF. The actual separate
+  ClamAV service reported clean; authorized record review worked. The download
+  action reported `CV download prepared.` after the protected response. A browser
+  automation download-event hook stalled, so a downloaded filesystem copy was
+  not verified through that hook. Local `pdfinfo` independently verified the
+  generated PDF structure (one page, no JavaScript, no encryption).
+- Career review changed from Received to Reviewing and acknowledged the save.
+- A job-specific application to the private fixture saved and its CV scanned
+  clean. Withdrawal saved, removed further status transitions and set the
+  12-calendar-month application deadline, without future-role opt-in.
+- Hindi review labels/status/retention text rendered while source record values
+  stayed unchanged. The site was returned to English.
+- Sign-out succeeded. Opening the saved record again redirected to Staff sign-in.
+
+`scripts/check-private-staging.mjs` also passed ten hosted endpoint checks:
+missing gate -> 401; actual unlock -> 303; all three real-data submission routes
+-> 503; public jobs -> 200 with an empty items array; gate without staff session
+cannot mutate (403) or open the workspace (307 to sign-in); foreign-origin unlock
+-> 403. That script submits no applicant record. It refuses any other hostname
+and reads only the ignored staging configuration. Existing 72 unit/security tests
+and 12 local preview checks pass; typecheck/lint/build pass. Runtime-only npm audit
+reported zero advisories; development-tooling advisories remain separate.
+
+Screenshot evidence is local/ignored at
+`artifacts/qa/private-coolify-staging-review.jpg`. The stack contains only synthetic
+fixtures. Actual Lightsail PostgreSQL/S3/SES and the existing scanner were not
+used or changed by this staging deployment. This preview uses separate PostgreSQL,
+private filesystem storage, ClamAV and captured email.
+
+### Remaining requirements and owner review
+
+Review the private preview and its generated imagery, mission/vision and Hindi
+terminology. Public intake, actual provider delivery/storage activation, approved
+privacy notice, correction/deletion/legal-hold and backup operations, native
+language/legal review, real vacancies, accessibility/performance checks and all
+launch sign-offs remain open. This milestone does not authorize a public launch
+or certify production retention/deletion. No production launch box was checked.

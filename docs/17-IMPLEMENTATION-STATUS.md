@@ -239,3 +239,23 @@ No scanner was installed: the shared VPS has about 1.8 GB available RAM, below C
 ## 15 November 2026 — owner-approved same-VPS scanner
 
 Owner directed hosting the scanner on the current VPS. Installed and verified official pinned ClamAV 1.5.4, rootless/network-disabled engine, private group socket, 1280 MiB RAM/no container swap, half-CPU cap and serialized full-signature updates. Benign/EICAR/oversize/unavailable-socket checks passed; no scanner OOM. Five-minute fail-closed monitor and six-hour update timers activated successfully; post-maintenance engine checks passed. Observed daemon use 947 MiB, host available about 1140 MiB. This supersedes the host-choice blocker but is not production-load capacity approval. See docs/26 and ops/private-scanner. No app launch, live CV intake, credentials/bucket changes, purchase, resize or other service restart occurred. 67 unit tests, typecheck/lint/build/handoff pass; saved collection gates remain closed.
+
+## 15 November 2026 — private Coolify staging verified
+
+At the owner's request, deployed an isolated synthetic environment on Coolify
+`localhost` (Hostinger), at `https://arms-staging.dronalogitech.com`. The separate
+source branch is `codex/private-coolify-staging`; deployed app commit is b3b6394.
+It has a signed private site gate, independent password-plus-code staff sign-in,
+new restricted-role PostgreSQL database/volumes, private synthetic filesystem CV
+storage, a separate actual ClamAV engine and captured mail. No actual ARMS data,
+S3/SES credentials or existing Lightsail services were copied or changed.
+
+All three fixed-case employer/Career/application journeys saved; employer retry
+kept its reference; acknowledgement/internal notification were privately captured;
+two CVs scanned clean; protected download acknowledged; review and withdrawal
+saved; retention dates and Hindi rendering were checked. Sign-out denied the next
+record read. Ten additional hosted API checks confirmed closed real-data routes,
+empty public job feed, gate/staff separation and origin enforcement. Local checks:
+72 unit/security tests, 12 preview checks, typecheck, lint, build, with runtime-only
+npm audit showing no advisories. See docs/27 for exact evidence and the browser
+download-event limitation. Public collection and production launch remain gated.
