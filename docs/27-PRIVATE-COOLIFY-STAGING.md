@@ -38,6 +38,12 @@ Create four unrelated random values in protected configuration:
 and `STAGING_ADMIN_PASSWORD` (43+ base64url characters each). Do not attach actual
 ARMS `.env`, database URLs, AWS keys, or production file volumes.
 
+The preview password may be 12–256 characters. Cookie signing derives a separate
+key from the random 32+ character runtime secret and the preview password; do not
+replace the runtime secret with a memorable password. Resetting the preview
+password invalidates existing preview sessions. Changing its Coolify value
+requires applying the configuration to the running containers.
+
 Open `/staging/unlock`, then sign in at `/admin/sign-in` as `qa@example.invalid`.
 The protected `/staging/mailbox` shows the synthetic sign-in code. Run the three
 journeys at `/admin/staging`, retry a saved case, review each receipt, download

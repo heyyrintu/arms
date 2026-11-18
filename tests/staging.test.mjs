@@ -18,6 +18,18 @@ test('gate cookies reject tampering, expiry, missing configuration and wrong pas
  assert.ok(verifyGate(cookie,env,now));assert.equal(verifyGate(cookie+'x',env,now),false);assert.equal(verifyGate(cookie,env,now+28800000),false);assert.equal(verifyGate(cookie,{},now),false);
  assert.equal(unlockGate('wrong',env),false);assert.ok(unlockGate(env.STAGING_GATE_PASSWORD,env));assert.equal(verifyGate(cookie,{...env,STAGING_GATE_PASSWORD:'z'.repeat(43)},now),false);
 });
+test('memorable preview passwords retain independent strong signing and reset invalidation',()=>{
+ const configured={...env,STAGING_GATE_PASSWORD:'preview-phrase'},now=Date.now(),cookie=issueGate(configured,now);
+ assert.ok(unlockGate('preview-phrase',configured));assert.equal(unlockGate('another-phrase',configured),false);
+ assert.ok(verifyGate(cookie,configured,now));
+ assert.equal(verifyGate(cookie,{...configured,STAGING_GATE_PASSWORD:'replacement-phrase'},now),false);
+ assert.equal(verifyGate(cookie,{...configured,STAGING_RUNTIME_SECRET:'z'.repeat(43)},now),false);
+ for(const change of [{STAGING_GATE_PASSWORD:'short'},{STAGING_GATE_PASSWORD:'x'.repeat(257)},{STAGING_RUNTIME_SECRET:'short'},{STAGING_RUNTIME_SECRET:undefined}]){
+  assert.throws(()=>issueGate({...configured,...change}),/STAGING_GATE_UNAVAILABLE/);
+  assert.throws(()=>unlockGate('preview-phrase',{...configured,...change}),/STAGING_GATE_UNAVAILABLE/);
+  assert.equal(verifyGate(cookie,{...configured,...change},now),false);
+ }
+});
 test('all three journeys and four industries generate fixed fixtures; personal fields are refused',()=>{
  for(const kind of ['employer','talent','application'])for(const industry of ['warehousing-fulfillment','transportation-drivers','cafes-hospitality','gig-work']){
   const input={kind,industry,cv:'none',requestId:randomUUID()},fixture=syntheticCase(input);
