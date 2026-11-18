@@ -1,0 +1,61 @@
+{
+  "origin": "Owner-supplied AI-generated images; creation method confirmed by the owner on 18 November 2026.",
+  "optimization": {
+    "format": "WebP",
+    "quality": 85,
+    "effort": 6,
+    "maxWidth": 1920
+  },
+  "assets": [
+    {
+      "name": "hero",
+      "source": "../assets/photos/hero.png",
+      "output": "public/photos/supplied/hero.webp",
+      "width": 1536,
+      "height": 1024,
+      "sourceBytes": 2126424,
+      "bytes": 125896,
+      "sourceSha256": "b89c4da39b066cf9191cf6da405306a4fce9881be93c64fb6de77ade8fc3e2ba"
+    },
+    {
+      "name": "warehouse",
+      "source": "../assets/photos/warehouse.png",
+      "output": "public/photos/supplied/warehouse.webp",
+      "width": 1536,
+      "height": 1024,
+      "sourceBytes": 2078700,
+      "bytes": 127404,
+      "sourceSha256": "52c64d93f4c9ec78f8603a3cdb32a9987b678d85e63c58b4345359507d70985b"
+    },
+    {
+      "name": "transport",
+      "source": "../assets/photos/transport.png",
+      "output": "public/photos/supplied/transport.webp",
+      "width": 1536,
+      "height": 1024,
+      "sourceBytes": 2002644,
+      "bytes": 109288,
+      "sourceSha256": "d85151aafb655465a6194be916e534329f0d2f20136a3328df2246595196dd77"
+    },
+    {
+      "name": "hospitality",
+      "source": "../assets/photos/hospitality.png",
+      "output": "public/photos/supplied/hospitality.webp",
+      "width": 1536,
+      "height": 1024,
+      "sourceBytes": 2159894,
+      "bytes": 145402,
+      "sourceSha256": "9ceb3e15a36fef7887711f8d3075406f275402c8c763e527069c062686fde5f9"
+    },
+    {
+      "name": "gig",
+      "source": "../assets/photos/gig.png",
+      "output": "public/photos/supplied/gig.webp",
+      "width": 1536,
+      "height": 1024,
+      "sourceBytes": 2077118,
+      "bytes": 123146,
+      "sourceSha256": "705effe405a4504f33170cf7254b21ebd74caf766c9c82a1daab63692604cf09"
+    }
+  ]
+}

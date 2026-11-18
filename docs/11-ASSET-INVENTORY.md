@@ -14,9 +14,11 @@ The `references/` folder contains copies of all seven user-supplied reference PN
 | `references/07-firefly_gpt-image_make-it-production-ready-!--93122.png` | Original transparent ARMS wordmark artwork |
 
 ## Optimized copies for website
-- `public/brand/arms-wordmark.webp` — transparent cropped full wordmark for website header/footer.
-- `public/brand/arms-symbol.webp` — transparent cropped icon.
-- `app/icon.png` — image-derived favicon (not recreated).
+- `public/brand/arms-wordmark.webp` — supplied burgundy/gold primary wordmark for the header (17 November 2026 design system).
+- `public/brand/arms-wordmark-reverse.webp` — supplied reverse wordmark for the deep burgundy footer.
+- `public/brand/arms-symbol.webp` — supplied burgundy/gold symbol.
+- `app/icon.png` — supplied symbol as favicon (not recreated).
+- `public/fonts/` — five supplied Montserrat WOFF faces plus official Noto Sans Devanagari and their OFL licences; provenance is recorded in its README. `npm run design:sync` refreshes supplied assets from the sibling design system; see docs/28.
 
 ## Missing assets needed before launch
 - Real approved authentic workplace photography with equal images for all three industries.

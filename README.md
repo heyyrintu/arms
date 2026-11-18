@@ -11,6 +11,12 @@ The project's strategy and copy reflect the decisions made for ARMS Talent Partn
 3. The working Next.js/TypeScript frontend is in `app/`, `components/`, `content/` and `public/brand/`.
 4. Use `references/` for the original user-supplied brand images. Do **not** publish brand-board mockups as operational photography.
 
+## Current design system — 17 November 2026
+
+The website applies the owner’s **Imperial Burgundy + Champagne** handoff from `../design-system/ARMS_Design_System.md`. Shared semantic tokens are bundled in `app/arms-tokens.css`; Montserrat and Noto Sans Devanagari are self-hosted, with licences in `public/fonts/`. Header, footer and favicon use the supplied new artwork. All four industries and both audience paths retain equal prominence.
+
+After editing the sibling design-system tokens/assets, run `npm run design:sync` to refresh the deployable copies. The current workplace images come from the owner’s `../assets/photos/` folder; `npm run photos:sync` refreshes their optimized website copies (docs/29). The website builds independently; its deployment does not need the sibling folder. See `docs/28-DESIGN-SYSTEM-APPLICATION.md` for scope and verification.
+
 ## Run the preview locally
 
 Requires Node.js 20.9+ (Node 22 recommended).

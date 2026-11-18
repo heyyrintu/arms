@@ -2,7 +2,7 @@ import {localizeTree} from '@/lib/i18n';
 import {getLocale} from '@/lib/server/locale';
 import Link from "next/link";
 import Image from "next/image";
-import wordmark from "@/public/brand/arms-wordmark.webp";
+import wordmark from "@/public/brand/arms-wordmark-reverse.webp";
 export default async function Footer() {
     return localizeTree(<footer className="footer"><div className="container footer-main">
   <div className="footer-brand"><Image src={wordmark} alt="ARMS Talent Partners" sizes="190px" className="wordmark footer-logo"/><p>Great people.<br />Greater possibilities.</p><small>Together for a Better Tomorrow</small></div>

@@ -1,0 +1,141 @@
+/* Synced by scripts/sync-design-system.mjs. Edit the source design-system tokens first. */
+/* ==========================================================================
+   ARMS Talent Partners — Design Tokens v1.0  (17 Nov 2026)
+   Theme: Imperial Burgundy + Champagne. Supersedes the teal-v1 palette
+   (archived in output/archive/teal-v1). Font files: ../assets/fonts
+   ========================================================================== */
+
+@font-face{font-family:"Montserrat";src:url("/fonts/Montserrat-Regular.subset.woff") format("woff");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Montserrat";src:url("/fonts/Montserrat-Italic.subset.woff") format("woff");font-weight:400;font-style:italic;font-display:swap}
+@font-face{font-family:"Montserrat";src:url("/fonts/Montserrat-Medium.subset.woff") format("woff");font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"Montserrat";src:url("/fonts/Montserrat-SemiBold.subset.woff") format("woff");font-weight:600;font-style:normal;font-display:swap}
+@font-face{font-family:"Montserrat";src:url("/fonts/Montserrat-Bold.subset.woff") format("woff");font-weight:700;font-style:normal;font-display:swap}
+
+:root{
+  /* ---------- 1. Primitive palette ---------- */
+  /* Maroon (brand core). 600 = Primary Maroon, 900 = Deep Burgundy */
+  --arms-maroon-50:#FCF4F5;
+  --arms-maroon-100:#F6E1E4;
+  --arms-maroon-200:#EBC3C9;
+  --arms-maroon-300:#D98793;
+  --arms-maroon-400:#C24A5E;
+  --arms-maroon-500:#C81E3A;   /* Secondary Red — energy, sparing use */
+  --arms-maroon-600:#8B0724;   /* PRIMARY MAROON */
+  --arms-maroon-700:#6A0D29;   /* Imperial Burgundy */
+  --arms-maroon-800:#5A0620;
+  --arms-maroon-900:#4A0016;   /* DEEP BURGUNDY */
+  --arms-maroon-950:#2C000D;
+
+  /* Champagne (soft accent system — owner asked to tone down bright yellow) */
+  --arms-champagne-50:#FAF5EC;
+  --arms-champagne-100:#EEE3D1;  /* Warm ivory panel */
+  --arms-champagne-200:#D8C4A3;  /* Muted champagne ribbon */
+  --arms-champagne-300:#D4BB91;  /* Champagne headline on burgundy */
+  --arms-champagne-400:#BC9D6D;  /* Antique gold — rules, ticks, decoration */
+  --arms-champagne-600:#7A5C2E;  /* Bronze — the only gold-family TEXT colour on light */
+
+  /* Logo gold — reserved for the star, symbol swoosh and tiny details */
+  --arms-gold-400:#F5C542;
+  --arms-gold-500:#E5A501;      /* sampled from the supplied 2D logo */
+
+  /* Neutrals (warm) */
+  --arms-white:#FFFFFF;
+  --arms-paper:#FBF8F4;
+  --arms-beige:#F4EDE6;         /* Light Beige — default canvas */
+  --arms-sand:#EDE3DA;
+  --arms-line:#E3D6D2;
+  --arms-line-strong:#CBB9B5;
+  --arms-muted:#8D4A5C;         /* muted plum — meta text, 5.5:1 on beige */
+  --arms-sub:#51474A;           /* body secondary */
+  --arms-charcoal:#222222;      /* body text */
+
+  /* Status (kept away from brand red so errors never look "on brand") */
+  --arms-success:#2E6B4F; --arms-success-bg:#E4EFE8;
+  --arms-warning:#8A5A0B; --arms-warning-bg:#F7EBCF;
+  --arms-error:#A3231B;   --arms-error-bg:#F8E3E0;
+  --arms-info:#2F5D7C;    --arms-info-bg:#E2ECF2;
+
+  /* ---------- 2. Semantic tokens (use these in components) ---------- */
+  --color-bg:var(--arms-beige);
+  --color-bg-raised:var(--arms-paper);
+  --color-bg-card:var(--arms-white);
+  --color-bg-inverse:var(--arms-maroon-900);
+  --color-bg-brand:var(--arms-maroon-600);
+  --color-bg-accent:var(--arms-champagne-100);
+
+  --color-text:var(--arms-charcoal);
+  --color-text-heading:var(--arms-maroon-900);
+  --color-text-brand:var(--arms-maroon-600);
+  --color-text-sub:var(--arms-sub);
+  --color-text-muted:var(--arms-muted);
+  --color-text-inverse:var(--arms-beige);
+  --color-text-inverse-sub:#E9D9DB;
+  --color-text-accent-on-dark:var(--arms-champagne-300);
+  --color-text-accent-on-light:var(--arms-champagne-600);
+
+  --color-border:var(--arms-line);
+  --color-border-strong:var(--arms-line-strong);
+  --color-rule-accent:var(--arms-champagne-400);
+  --color-focus:var(--arms-maroon-600);
+  --color-focus-on-dark:var(--arms-gold-400);
+
+  --color-action:var(--arms-maroon-600);
+  --color-action-hover:var(--arms-maroon-900);
+  --color-action-text:var(--arms-white);
+  --color-action-alt:var(--arms-champagne-200);       /* champagne button on dark */
+  --color-action-alt-hover:var(--arms-champagne-100);
+  --color-action-alt-text:var(--arms-maroon-900);
+
+  /* ---------- 3. Typography ---------- */
+  --font-sans:"Montserrat","Avenir Next","Segoe UI",Arial,sans-serif;
+  --font-hindi:"Noto Sans Devanagari","Kohinoor Devanagari","Nirmala UI","Mangal",sans-serif;
+  --font-mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+
+  --weight-regular:400; --weight-medium:500; --weight-semibold:600; --weight-bold:700;
+
+  /* Fluid type scale — min @360px, max @1440px */
+  --text-display:clamp(2.5rem,1.6rem + 4vw,5rem);      /* 40 → 80  hero */
+  --text-h1:clamp(2.25rem,1.7rem + 2.4vw,3.75rem);     /* 36 → 60 */
+  --text-h2:clamp(1.75rem,1.4rem + 1.6vw,2.75rem);     /* 28 → 44 */
+  --text-h3:clamp(1.375rem,1.2rem + .8vw,1.875rem);    /* 22 → 30 */
+  --text-h4:1.25rem;                                    /* 20 */
+  --text-lead:clamp(1.0625rem,1rem + .35vw,1.3125rem);  /* 17 → 21 */
+  --text-body:1rem;                                     /* 16 */
+  --text-small:.875rem;                                 /* 14 */
+  --text-caption:.75rem;                                /* 12 */
+  --text-eyebrow:.75rem;                                /* 12, caps */
+
+  --leading-tight:1.08; --leading-snug:1.2; --leading-normal:1.6; --leading-hindi:1.85;
+  --tracking-display:-.035em; --tracking-heading:-.02em; --tracking-eyebrow:.18em; --tracking-wordmark:.08em;
+
+  /* ---------- 4. Space (4px base) ---------- */
+  --space-0:0; --space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px; --space-5:20px;
+  --space-6:24px; --space-8:32px; --space-10:40px; --space-12:48px; --space-16:64px;
+  --space-20:80px; --space-24:96px; --space-32:128px;
+  --section-y:clamp(64px,8vw,112px);
+  --gutter:clamp(18px,5vw,72px);
+  --container:1280px; --container-narrow:780px;
+
+  /* ---------- 5. Shape, elevation, motion ---------- */
+  --radius-0:0; --radius-sm:4px; --radius-md:8px; --radius-lg:16px; --radius-xl:24px; --radius-pill:999px;
+  --radius-control:var(--radius-sm);     /* buttons + inputs: crisp, editorial */
+  --radius-card:var(--radius-md);
+
+  --shadow-1:0 1px 2px rgba(74,0,22,.06),0 1px 1px rgba(74,0,22,.04);
+  --shadow-2:0 6px 18px rgba(74,0,22,.08),0 2px 4px rgba(74,0,22,.05);
+  --shadow-3:0 18px 40px rgba(74,0,22,.14),0 4px 10px rgba(74,0,22,.06);
+
+  --ease-out:cubic-bezier(.2,.7,.2,1);
+  --dur-fast:150ms; --dur-base:220ms; --dur-slow:420ms;
+
+  --tap-min:44px;
+  --z-header:50; --z-overlay:100; --z-toast:200;
+
+  /* Signature brand curve (from the logo swoosh) — use as a single sweep, max 1 per view */
+  --brand-sweep:linear-gradient(100deg,transparent 0 58%,var(--arms-champagne-300) 58% 60%,var(--arms-maroon-600) 60% 100%);
+}
+
+/* Hindi: zero tracking, taller line-height for matras */
+html[lang="hi"]{--font-sans:"Montserrat",var(--font-hindi);--tracking-display:0;--tracking-heading:0;--tracking-eyebrow:.03em;--leading-tight:1.3;--leading-normal:var(--leading-hindi)}
+
+@media (prefers-reduced-motion:reduce){:root{--dur-fast:0ms;--dur-base:0ms;--dur-slow:0ms}}

@@ -16,7 +16,7 @@ You are implementing the ARMS Talent Partners website from the supplied reposito
 - Owner update: provide Hindi/English UI, Career wording and mission/vision; retain all collection and launch gates.
 - Hero copy is **“Great people. Greater possibilities.”**; tagline is **“Together for a Better Tomorrow.”**
 - Identity is **Premium + Bold + Human**; Editorial Hero with approx. **65% content / 35% photography emphasis**; strong eye-level workplace panorama, **Powerful & Ambitious**, not fake stock-photo smiles.
-- Use existing logo assets, deep teal/ivory/gold. Avoid metal gradients, glassmorphism, spinning stars, generic HR icons and endless cards.
+- Use the owner’s 17 November 2026 design system in `../design-system/ARMS_Design_System.md`: Imperial Burgundy, Champagne and Montserrat, with supplied primary/reverse logo assets. This supersedes the older teal palette. Avoid metal gradients, glassmorphism, spinning stars, generic HR icons and endless cards.
 - Jobs must be genuine, admin-approved and published; demo listings must remain labelled and blocked from application and public indexing.
 - A candidate can apply to specific jobs **or** join the general talent network. Do not require an account for a public application.
 - Do not invent contact details, case studies, placement counts, names, quotes, testimonials, legal guarantees or live vacancies.

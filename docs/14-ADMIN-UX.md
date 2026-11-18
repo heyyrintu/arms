@@ -3,7 +3,7 @@
 The public website is not a payroll platform. Admin v1 manages **jobs, leads and candidate pipelines**, not payroll execution or worker salary slips.
 
 ## Layout
-Simple high-contrast operational interface, not the marketing homepage. Use ARMS identity minimally (deep teal/ivory), prioritize tables, status, search and secure access. Admin uses database-backed staff sign-in, server-side role checks and an email code required in production. Email codes are an additional verification step, not phishing-resistant or NIST-assured MFA. No public self-registration is allowed.
+Simple high-contrast operational interface, not the marketing homepage. Use ARMS identity minimally (Imperial Burgundy/Champagne, following docs/02), prioritize tables, status, search and secure access. Admin uses database-backed staff sign-in, server-side role checks and an email code required in production. Email codes are an additional verification step, not phishing-resistant or NIST-assured MFA. No public self-registration is allowed.
 
 ## Menu
 Dashboard · Jobs · Applications · Talent Network · Employer Enquiries · Activity (admin-only) · Settings (admin-only).

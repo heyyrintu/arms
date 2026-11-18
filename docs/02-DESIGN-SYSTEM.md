@@ -1,46 +1,50 @@
 # 02 · Design and interaction system
 
-## Identity
-**Premium + Bold + Human**. Bold editorial typography, generous whitespace, powerful authentic photography and very restrained gold detailing. Avoid generic staffing and SaaS templates.
+## Current owner handoff — 17 November 2026
 
-## Color tokens (website working values, confirm against final brand masters)
-| Token | Hex | Usage |
-|---|---|---|
-| Deep teal | `#073F43` | Primary text, buttons, dark sections |
-| Teal | `#0C777C` | Accessible emphasis on pale backgrounds, links |
-| Gold | `#CDA23E` | Sparse accent lines/details only |
-| Warm ivory | `#F6F3EB` | Primary canvas |
-| Off-white | `#FFFCF7` | Alternating editorial panels |
-| Charcoal/subtext | `#506564` | Body copy on light backgrounds |
+**Imperial Burgundy + Champagne**, from `../../design-system/ARMS_Design_System.md` and its visual guide. This replaces the older teal palette and Arial/Manrope/Inter proposal. Identity stays **Premium + Bold + Human**; the editorial story, audience parity, four-sector parity, bilingual UI and collection/launch gates remain.
 
-Prototype uses system Arial/Helvetica for zero external font dependency. Proposed approved web fonts: Manrope for headline and Inter for body, self-hosted/loaded with optimization after licensing and build testing. Keep the wordmark graphic unchanged; **do not regenerate brand logo with AI**.
+The source of truth is `../../design-system/tokens/arms-tokens.css`. Run `npm run design:sync` to copy its full token set, Montserrat faces and supplied logo artwork into the website. `app/arms-tokens.css` differs only by its generated-file comment and local font URLs. The deployable site needs no files outside this repository.
 
-## Hero
-- Editorial Hero, typography-dominant: approximately **65% content emphasis** / **35% photo emphasis**, not a rigid CSS width split.
-- Warm ivory. Left-aligned two-line main headline; confident dark teal; genuine operational panorama below copy.
-- Eyebrow: `WORKFORCE MANAGEMENT & CAREER OPPORTUNITIES`.
-- Headline: `Great people. / Greater possibilities.`
-- Short support copy; two equal dark, visible CTAs: **Hire Workforce** and **Find Work**.
-- One wide photograph: people working, team coordination, operational scale; no text overlays over faces.
-- Desktop spacing concept: side margins 64–88 px at 1440 width; header 72–84 px; headline 72–88 px; 24–32 px title-to-description gap; 32–40 px text-to-action gap; 44–64 px action-to-photo gap. These are *starting targets* and must be adjusted after testing.
-- On mobile: headline 38–46 px where possible, concise copy, two large stacked CTAs, intentional crop showing people, readable without animation.
+## Palette
 
-## Photography
-- **People at Work**; **Powerful & Ambitious**; cinematic editorial realism, eye-level/slightly low, controlled directional natural light, medium-high realistic contrast.
-- Real workplaces, real skills, dignity and movement. Prefer company-owned, permissioned imagery. No fake group photos or false implication of endorsement/employment.
-- Give **equal image scale, effort and placement** to all three industries.
-- Never expose confidential documents, employee records, unsafe operational practices or people without consent.
-- The original `PhotoSlot` placeholders have been replaced in preview by visibly disclosed generated concepts (`WorkplaceImage`) at the owner’s request; **genuine approved/licensed photography remains a launch requirement**. See `16-GENERATED-IMAGERY.md`.
+| Semantic token | Value | Use |
+| --- | --- | --- |
+| `--color-bg` | `#F4EDE6` | Light beige canvas |
+| `--color-bg-card` | `#FFFFFF` | Cards and inputs |
+| `--color-bg-inverse` | `#4A0016` | Statement/closing sections |
+| `--arms-maroon-950` | `#2C000D` | Footer |
+| `--color-action` | `#8B0724` | Primary controls and brand emphasis |
+| `--color-action-hover` | `#4A0016` | Primary hover |
+| `--color-action-alt` | `#D8C4A3` | Champagne controls on burgundy |
+| `--color-bg-accent` | `#EEE3D1` | Preview banner/contact panel |
+| `--color-text` | `#222222` | Body copy |
+| `--color-text-heading` | `#4A0016` | Headings |
+| `--color-text-sub` | `#51474A` | Secondary copy |
+| `--color-rule-accent` | `#BC9D6D` | Decoration |
+| `--color-text-accent-on-light` | `#7A5C2E` | Bronze text on beige |
 
-## Components and motion
-- Clean header, purposeful dropdowns (future), contrast-safe buttons, large editorial images, short strategic statement sections, clear cards only where they aid comprehension.
-- Subtle reveal/hover, no image carousel or autoplay video required; respect `prefers-reduced-motion` and avoid scroll traps.
-- Gold orbital form from the provided brand icon can inform a *very sparse* connective line, not spinning star visuals.
+Logo gold stays in the supplied artwork and focus rings on dark surfaces. No large bright-yellow fields or gold body text on light surfaces. Errors use the separate `--arms-error` token; warnings and success messages keep their semantic status colors.
 
-## Accessibility
-- Target WCAG 2.2 AA, verify text contrast, native inputs/labels, focus rings, skip link, keyboard navigation, aria-live form messages, proper alt text, 44×44 target goal, no information conveyed by color alone.
+## Typography, spacing and components
 
+- Self-hosted **Montserrat** Regular/Italic/Medium/SemiBold/Bold; **Noto Sans Devanagari** for Hindi glyphs. `font-display: swap`, no external font request. Hindi keeps zero heading tracking and taller line heights for matras.
+- Fluid source scale: Display 40–80px, H1 36–60px, H2 28–44px, H3 22–30px; 16px body, 14px small and 12px captions/eyebrows. The narrowest mobile hero adapts further for readable wrapping.
+- 4px spacing base, 1280px main/780px narrow containers, section padding from `--section-y` (64–112px). Preserve the established 1180/940/650px responsive behavior.
+- Controls have 4px corners, cards 8px. Primary controls use maroon; closing-section controls use champagne. Employers and candidates keep equal CTA dimensions and prominence.
+- Audience cards are white and inverse maroon. Industry cards share equal image dimensions, border/rule treatment and responsive rows. Lifecycle steps use a champagne connector and burgundy markers.
+- Header uses `public/brand/arms-wordmark.webp`; footer uses the reverse artwork directly on deep burgundy. Do not regenerate or trace the logos. `app/icon.png` is the supplied new symbol.
+- At most one signature sweep per page: the homepage image has the handoff’s thin champagne/maroon device.
+- Hover transitions use source motion tokens; reduced-motion preference disables transitions/animations.
 
-## Owner-directed brand and language update — 14 November 2026
+## Hero and imagery
 
-The owner explicitly added **Gig Work** as a fourth industry alongside Warehousing & Fulfillment, Transportation & Drivers and Cafés & Hospitality, with equal prominence. They requested a credible handshake/manpower/gig-worker hero, an expanded About with mission and vision, **Career** instead of Join Talent Network, and Hindi/English across the web app. These instructions supersede earlier three-sector, earlier hero-subject and language-pending descriptions in this document; they do not change payroll-by-contract, audience parity, authenticity, security or launch gates. Current implementation and evidence: docs/22.
+Maintain the typography-led editorial hero (~65% content emphasis/35% image emphasis), the exact headline **Great people. Greater possibilities.**, and tagline **Together for a Better Tomorrow**. Keep two equal Hire Workforce/Find Work actions and the owner’s supplied workforce handshake image below the copy.
+
+Use the owner’s latest `assets/photos/` images without recoloring them; deployable WebP copies live in `public/photos/supplied/` (docs/29). Home/About use a 2:1 desktop frame with a face-safe upper-center crop and a full 3:2 mobile frame. Every generated image keeps its visible AI concept caption and illustrative alt text in both languages. All four industries — Warehousing & Fulfillment, Transportation & Drivers, Cafés & Hospitality and Gig Work — keep equal visual weight. See docs/16 for provenance; supplied mockups are not operational photographs.
+
+## Accessibility and boundaries
+
+Target WCAG 2.2 AA: test text/control contrast, 320–1440px reflow, both languages, keyboard menu/Escape/focus return, skip link, labels, status messages and reduced motion. Input borders use the muted plum token to remain visible on white. Focus uses maroon on light and logo gold on dark. A full human screen-reader audit remains separate from automated/browser checks.
+
+This design application changes presentation only. Secure collection, protected staff authorization, real vacancies, privacy approval and public launch remain governed by their existing gates. Current verification is recorded in docs/28.

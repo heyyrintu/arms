@@ -8,6 +8,8 @@
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
+    "design:sync": "node scripts/sync-design-system.mjs",
+    "photos:sync": "node scripts/sync-workplace-photos.mjs",
     "check:handoff": "node scripts/validate-handoff.mjs",
     "test:preview": "node --test tests/preview.test.mjs",
     "test:unit": "node --test tests/i18n.test.mjs tests/job-filters.test.mjs tests/job-posting.test.mjs tests/jobs-service.test.mjs tests/database-config.test.mjs tests/storage-config.test.mjs tests/staff-auth.test.mjs tests/local-staff-setup.test.mjs tests/intake.test.mjs tests/documents.test.mjs tests/notifications.test.mjs tests/clamav.test.mjs tests/private-tools.test.mjs tests/scanner-monitor.test.mjs tests/staging.test.mjs tests/staging-bootstrap.test.mjs",
