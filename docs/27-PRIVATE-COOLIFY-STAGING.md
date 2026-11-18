@@ -4,6 +4,10 @@ Owner requested running the workflow in Coolify on the server named `localhost`
 (Hostinger). This is a separate private staging resource. It is not the public
 launch approval required by `10-LAUNCH-CHECKLIST.md`.
 
+Current private preview (18 November 2026):
+https://armstalentpartners.com/staging/unlock. The older staging hostname below
+is a historical deployment address; use the current preview for review.
+
 ## Isolation
 
 - A new `arms_private_stage` database, restricted role per capability, isolated
@@ -130,3 +134,50 @@ privacy notice, correction/deletion/legal-hold and backup operations, native
 language/legal review, real vacancies, accessibility/performance checks and all
 launch sign-offs remain open. This milestone does not authorize a public launch
 or certify production retention/deletion. No production launch box was checked.
+
+## Design and supplied-photo deployment — 18 November 2026
+
+Coolify successfully deployed source
+`39102bcc534d4b514f9b87b9ad28d3cd8d63d5b8` from
+`codex/private-coolify-staging`, containing the Burgundy/Champagne design system
+and all five owner-supplied AI-generated workplace images. Deployment
+`vyxk1um8v4tczlxeindtpn2j` started at 16:41:56 UTC and completed in 15m 27s.
+The resource subsequently reported `Running (no healthcheck)`; this is a runtime
+status, not an assertion that every service has an application healthcheck.
+
+The existing Coolify resource already had `https://armstalentpartners.com` and
+the `www` redirect configured before this deployment. No domain, DNS, secret,
+environment setting, storage volume or access gate was changed. The former
+`arms-staging.dronalogitech.com` address returned 503 and is no longer the review
+URL. The current root returned 401 without the private cookie; the unlock page
+rendered normally with the private synthetic staging and closed-submission
+notices.
+
+Hosted release verification confirmed:
+
+- Authenticated home returned 200 with the supplied hero description and noindex.
+- Burgundy/Champagne CSS and local Montserrat were served; the font bytes matched
+  the repository asset.
+- All five supplied WebP files matched their local SHA-256 hashes exactly.
+- Hindi industries returned 200 with Hindi language and concept-image disclosure.
+- Coolify's deployment history showed `Success` for the exact source above.
+
+Local evidence (ignored): `artifacts/qa/coolify-release-verification.json` and
+`artifacts/qa/coolify-design-photo-deployment.jpg`. Runtime-only dependency audit
+reported zero vulnerabilities. The existing design/photo build, typecheck, lint,
+handoff, localization and preview checks had passed before the source push; the
+Coolify image also completed its production build and TypeScript check.
+
+A repeat password-based endpoint check was blocked by automatic approval review
+because it would transmit the saved staging password to the current domain.
+It was not retried through another mechanism. The successful release-asset
+verification above had already completed. The full staff workflow and scanner
+journeys recorded in the earlier section were not repeated for this design-only
+release. `check-private-staging.mjs` now accepts an explicit `--origin` restricted
+to the current or historical named ARMS deployment; its default remains the
+origin in the ignored operator configuration.
+
+Previous successful source `80d38d0`, deployment `ktlsnobybmcqzxnihbxq1jda`, is
+recorded as the prior rollback point. No rollback was needed. This release keeps
+the private synthetic environment and all real-data/public launch gates in place;
+it does not approve public intake or activate actual provider services.

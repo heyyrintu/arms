@@ -3,8 +3,10 @@
 import {readFile} from 'node:fs/promises';
 import assert from 'node:assert/strict';
 const env=Object.fromEntries((await readFile(new URL('../.env.staging-access',import.meta.url),'utf8')).trim().split('\n').map(line=>{const i=line.indexOf('=');return [line.slice(0,i),line.slice(i+1)];}));
-assert.equal(env.APP_BASE_URL,'https://arms-staging.dronalogitech.com');
-const origin=env.APP_BASE_URL;
+const args=process.argv.slice(2);
+assert.ok(args.length===0||(args.length===2&&args[0]==='--origin'),'Use --origin with the exact approved ARMS origin');
+const origin=args.length?args[1]:env.APP_BASE_URL;
+assert.ok(['https://arms-staging.dronalogitech.com','https://armstalentpartners.com'].includes(origin),'Use the named ARMS private deployment only');
 const request=(path,options={})=>fetch(origin+path,{redirect:'manual',signal:AbortSignal.timeout(15000),...options});
 let checks=0;
 function check(actual,expected,label){assert.equal(actual,expected,label);console.log('PASS '+label);checks++;}
