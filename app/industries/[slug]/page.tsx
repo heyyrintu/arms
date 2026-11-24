@@ -12,8 +12,55 @@ export async function generateMetadata({ params }: {
     }>;
 }) { const { slug } = await params; const i = industries.find(x => x.slug === slug); return i ? localizedMetadata(pageMetadata(i.name, i.summary)) : {}; }
 export default async function IndustryDetail({ params }: {
-    params: Promise<{
-        slug: string;
-    }>;
-}) { const { slug } = await params; const industry = industries.find(i => i.slug === slug); if (!industry)
-    notFound(); const photo = industry.photoCategory; return localizeTree(<><section className="page-hero container"><p className="eyebrow">{industry.kicker}</p><h1>{industry.headline}</h1><p className="lead">{industry.summary}</p><WorkplaceImage category={photo} variant="feature"/></section><section className="section container"><div className="split-intro"><div><p className="eyebrow">ROLES WE SUPPORT</p><h2>Built around the work.</h2></div><ul className="feature-list compact">{industry.roles.map(role => <li key={role}>{role}</li>)}</ul></div></section><section className="section section-tint"><div className="container"><div className="audience-grid"><article className="audience-card"><p className="eyebrow">FOR EMPLOYERS</p><h3>Support for your operation.</h3><p>{industry.employerAngle}</p><Link className="text-link" href="/hire-workforce">Request Workforce ↗</Link></article><article className="audience-card"><p className="eyebrow">FOR CANDIDATES</p><h3>Work that matches your ambition.</h3><p>{industry.candidateAngle}</p><Link className="text-link" href={`/jobs?industry=${industry.slug}`}>Explore Jobs ↗</Link><Link className="text-link" href="/career">Career ↗</Link></article></div></div></section></>, await getLocale()); }
+    params: Promise<{ slug: string }>;
+}) {
+    const { slug } = await params;
+    const industry = industries.find(i => i.slug === slug);
+    if (!industry) notFound();
+
+    return localizeTree(
+        <>
+            <section className="page-hero page-hero-split container">
+                <div>
+                    <p className="eyebrow">{industry.name}</p>
+                    <h1>{industry.headline}</h1>
+                    <p className="lead">{industry.summary}</p>
+                </div>
+                <div className="editorial-frame">
+                    <WorkplaceImage category={industry.photoCategory} variant="feature" sizes="(max-width: 700px) 90vw, (max-width: 900px) 630px, (max-width: 1440px) 40vw, 550px" />
+                </div>
+            </section>
+            <section className="section section-paper">
+                <div className="container editorial-split">
+                    <div>
+                        <p className="eyebrow">ROLES WE SUPPORT</p>
+                        <h2>Built around the work.</h2>
+                    </div>
+                    <div className="editorial-list">
+                        <ul className="feature-list compact">
+                            {industry.roles.map(role => <li key={role}>{role}</li>)}
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <section className="section section-tint">
+                <div className="container audience-grid">
+                    <article className="audience-card">
+                        <p className="eyebrow">FOR EMPLOYERS</p>
+                        <h2>Support for your operation.</h2>
+                        <p>{industry.employerAngle}</p>
+                        <Link className="text-link" href="/hire-workforce">Request Workforce ↗</Link>
+                    </article>
+                    <article className="audience-card">
+                        <p className="eyebrow">FOR CANDIDATES</p>
+                        <h2>Work that matches your ambition.</h2>
+                        <p>{industry.candidateAngle}</p>
+                        <Link className="text-link" href={`/jobs?industry=${industry.slug}`}>Explore Jobs ↗</Link>
+                        <Link className="text-link" href="/career">Career ↗</Link>
+                    </article>
+                </div>
+            </section>
+        </>,
+        await getLocale(),
+    );
+}

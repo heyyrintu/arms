@@ -17,16 +17,17 @@ const images = {
 type Props = {
     category: keyof typeof images;
     variant?: "card" | "feature" | "panorama";
+    sizes?: string;
 };
-export default async function WorkplaceImage({ category, variant = "card" }: Props) {
+export default async function WorkplaceImage({ category, variant = "card", sizes }: Props) {
     const image = images[category];
     const isIndustry = category !== "hero" && category !== "people";
-    const sizes = variant === "card"
+    const defaultSizes = variant === "card"
         ? "(max-width: 650px) 90vw, (max-width: 1422px) 43vw, 624px"
         : "(max-width: 1422px) 90vw, 1280px";
     return localizeTree((<figure className={`workplace-image workplace-image-${variant}${isIndustry ? " workplace-image-industry" : ""}`}>
       <div className="workplace-image-frame">
-        <Image src={image.src} alt={image.alt} sizes={sizes} preload={variant === "panorama"} loading={variant === "feature" ? "eager" : undefined}/>
+        <Image src={image.src} alt={image.alt} sizes={sizes ?? defaultSizes} preload={variant === "panorama"} loading={variant === "feature" ? "eager" : undefined}/>
       </div>
       <figcaption>AI-generated concept · illustrative people and workplaces</figcaption>
     </figure>), await getLocale());

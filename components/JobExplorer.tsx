@@ -21,10 +21,11 @@ export default function JobExplorer({ jobs, initialIndustry = "all" }: {
     const filtered = Boolean(query || industry !== "all" || location || employmentType);
     function clearFilters() { setQuery(""); setIndustry("all"); setLocation(""); setEmploymentType(""); searchInput.current?.focus(); }
     return localizeTree(<section aria-label="Job search" className="job-explorer">
-  <div className="job-filters"><label>Search roles or locations<input ref={searchInput} type="search" value={query} onChange={e => setQuery(e.target.value)} placeholder="e.g. Driver or Gurugram"/></label><label>Industry<select value={industry} onChange={e => setIndustry(e.target.value)}><option value="all">All industries</option>{industries.map(i => <option value={i.slug} key={i.slug}>{i.name}</option>)}</select></label></div>
-  <div className="job-filters job-extra-filters">
-   <label>Location<select value={location} onChange={e => setLocation(e.target.value)}><option value="">All locations</option>{options.locations.map(value => <option key={value} value={value}>{value}</option>)}</select></label>
-   <label>Employment type<select value={employmentType} onChange={e => setEmploymentType(e.target.value)}><option value="">All employment types</option>{options.employmentTypes.map(value => <option key={value} value={value}>{value}</option>)}</select></label>
+  <div className="job-filters job-filter-panel">
+    <label>Search roles or locations<input ref={searchInput} type="search" value={query} onChange={e => setQuery(e.target.value)} placeholder="e.g. Driver or Gurugram"/></label>
+    <label>Industry<select value={industry} onChange={e => setIndustry(e.target.value)}><option value="all">All industries</option>{industries.map(i => <option value={i.slug} key={i.slug}>{i.name}</option>)}</select></label>
+    <label>Location<select value={location} onChange={e => setLocation(e.target.value)}><option value="">All locations</option>{options.locations.map(value => <option key={value} value={value}>{value}</option>)}</select></label>
+    <label>Employment type<select value={employmentType} onChange={e => setEmploymentType(e.target.value)}><option value="">All employment types</option>{options.employmentTypes.map(value => <option key={value} value={value}>{value}</option>)}</select></label>
   </div>
   <div className="job-results-toolbar"><p className="results-count" role="status" aria-live="polite" aria-atomic="true">{visible.length} {visible.length === 1 ? "listing" : "listings"} shown</p>{filtered && <button type="button" className="text-link clear-filters" onClick={clearFilters}>Clear filters</button>}</div>
   {jobs.length === 200 && <p className="fineprint">Search covers the 200 newest verified listings.</p>}

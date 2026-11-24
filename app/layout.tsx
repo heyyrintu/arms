@@ -10,6 +10,7 @@ import LocaleProvider from '@/components/LocaleProvider';
 import {getLocale} from '@/lib/server/locale';
 import {localizeTree,translate} from '@/lib/i18n';
 import "./globals.css";
+import "./editorial.css";
 export async function generateMetadata():Promise<Metadata> {
   const locale=await getLocale();
   return {title:{default:`${siteTitle} — ${translate('Great people.',locale)} ${translate('Greater possibilities.',locale)}`,template:`%s | ${siteTitle}`},description:translate(siteDescription,locale),robots:launchReady?undefined:{index:false,follow:false}};
