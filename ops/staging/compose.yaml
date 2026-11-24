@@ -43,6 +43,13 @@ services:
     depends_on:
       volume-init: {condition: service_completed_successfully}
     entrypoint: [sh, /opt/arms/scanner.sh]
+    healthcheck:
+      # Use the same private Unix socket as the staging app.
+      test: [CMD, clamdscan, '--config-file=/etc/clamav/arms-clamd.conf', '--ping', '1']
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 120s
     volumes:
       - stage-signatures:/var/lib/clamav
       - stage-socket:/run/clamav
